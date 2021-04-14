@@ -1,0 +1,118 @@
+﻿<ul class="sidebar-menu" data-widget="tree">
+    <li class="header text-capitalize">MAIN NAVIGATION</li>
+    <li class="@(ViewBag.Title == "Dashboard" ? "active" : "")">
+        <a href="/Home">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+    <li class="@(ViewBag.Title == "Service" ? "active" : "")">
+        <a href="/Category">
+            <i class="fa fa-table"></i>
+            <span>Service</span>
+        </a>
+    </li>
+    <li class="@(ViewBag.Title == "Order" ? "active" : "")">
+        <a href="/Laundry">
+            <i class="fa fa-shopping-cart"></i>
+            <span>Order</span>
+        </a>
+    </li>
+    <li class="@(ViewBag.Title == "Customer" ? "active" : "")">
+        <a href="/Customer">
+            <i class="fa fa-users"></i>
+            <span>Customer</span>
+        </a>
+    </li>
+    
+    <li class="treeview @(ViewBag.Title == "Report" ? "active" : "")">
+        <a href="#">
+            <i class="fa fa-bar-chart"></i>
+            <span>Report</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        
+        <ul class="treeview-menu">
+            <li class="@(ViewBag.Title == "Report" ? "active" : "")">
+                <a href="/Report">
+                    <i class="fa fa-circle-o text-"></i>Sale Report 
+                </a>
+            </li>
+            
+            <li class="@(ViewBag.Title == "Report" ? "active" : "")">
+                <a href="/Report">
+                    <i class="fa fa-circle-o text-"></i>Sale Commission 
+                </a>
+            </li>
+            
+            
+        </ul>
+
+    </li>
+    
+    <li class="header">Setting</li>
+
+    <li class="treeview @(ViewBag.Title == "Role" ? "active" : "") @(ViewBag.Title == "User" ? "active" : "") @(ViewBag.Title == "Commission" ? "active" : "")">
+        <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>User Management</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="@(ViewBag.Title == "User" ? "active" : "")">
+                <a href="@Url.Action("Index", "User")">
+                    <i class="fa fa-circle-o text-"></i>User
+                </a>
+            </li>
+            <li class="@(ViewBag.Title == "Role" ? "active" : "")">
+                <a href="@Url.Action("Index", "Roles")">
+                    <i class="fa fa-circle-o"></i>Role
+                </a>
+            </li>
+
+            @* <li class="@(ViewBag.Title == "Commission" ? "active" : "")"> *@
+            @*     <a href="@Url.Action("Index", "Commission")"> *@
+            @*         <i class="fa fa-circle-o"></i>Commission *@
+            @*     </a> *@
+            @* </li> *@
+
+        </ul>
+    </li>
+
+    <li class="@(ViewBag.Title == "Config" ? "active" : "")">
+        <a href="/Config/Index">
+            <i class="fa fa-cog"></i>
+            <span>App Config</span>
+        </a>
+    </li>
+
+    <li class="@(ViewBag.Title == "Backup" ? "active" : "")">
+        <a href="/Application/Index">
+            <i class="fa fa-database text-warning"></i>
+            <span>Backup</span>
+        </a>
+    </li>
+
+    <li class="@(ViewBag.Title == "Change Password" ? "active" : "")">
+        <a href="/User/ChangePassword">
+            <i class="fa fa-unlock text-maroon"></i>
+            <span>Change Password</span>
+        </a>
+    </li>
+
+    <li>
+
+        <a href="javascript:;" onclick="document.getElementById('frmLogout').submit()">
+            <i class="fa fa-sign-out text-aqua"></i>
+            <span> Logout</span>
+        </a>
+        @using (Html.BeginForm("Logout", "Login", FormMethod.Post, new {id = "frmLogout"}))
+        {
+        }
+    </li>
+
+</ul>

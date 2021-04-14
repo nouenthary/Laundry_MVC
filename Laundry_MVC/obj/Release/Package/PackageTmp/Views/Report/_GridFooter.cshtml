@@ -1,0 +1,18 @@
+﻿@model IGrid<Laundry_MVC.Models.Invoice>
+
+<tr>
+    <td colspan="6"><b>Total (R)</b></td>
+    <td></td>
+    <td style="background: #52c41a; color: #fff"><b>@(Model.Rows.Sum(row => row.Model.Total) + " ៛")</b></td>
+    
+    <td></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td colspan="6"><b>Total ($)</b></td>
+     <td></td>
+    <td style="background: #52c41a; color: #fff"><b>@(Model.Rows.Sum(row => row.Model.Total / 4000) + " $")</b></td>
+    <td></td>
+    <td></td>
+</tr>

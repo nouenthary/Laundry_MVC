@@ -1,0 +1,214 @@
+﻿@using Laundry_MVC.Models
+@model  List<Laundry_MVC.Models.Category>
+
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
+
+@{
+    ViewBag.Title = "Service";
+
+    var db = new DB_Connection();
+
+    int GetUserId()
+    {
+        try {
+            var cookie = Request.Cookies["id"];
+            return int.Parse(cookie.Value);
+        } catch (Exception e) {              
+            return 0;
+        }
+            
+    }
+
+    if (GetUserId() == 0)
+    {
+        Response.Redirect("/Login");
+    }
+
+    var useId = GetUserId();
+    var user = db.Users.FirstOrDefault(item => item.UserId == useId);
+
+    if (user == null)
+    {
+        Response.Redirect("/Login");
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-list"></i> List Service</h3>
+                @if (user?.RoleId == 1)
+                {
+                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add-category" style="float: right"><i class="fa fa-plus" ></i> Add Service</a>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                @(Html
+                    .Grid(Model)
+                    .Build(columns =>
+                    {
+                        columns.Add().RenderedAs((model, row) => row + 1).Titled("#");
+                        columns.Add(model => "<img src='/Content/image/"+model.Image+ "' width='20px'/>").Encoded(false).Titled("Image");
+                        columns.Add(model => model.Name).Titled("Service");
+                        columns.Add(model => model.Price + " ៛").Titled("Unit Price (៛)");
+                        columns.Add(model => model.Whole + " ៛").Titled("Whole Price (៛)");
+                        columns.Add(model => model.VIP + " ៛").Titled("VIP (៛)");
+                        columns.Add(model => model.Discount + " %").Titled("Discount");
+                      //  columns.Add(model => model.Discount + " %").Titled("Start Discount");
+                       // columns.Add(model => model.Discount + " %").Titled("End Discount");
+                        
+                        if (user?.UserId == 1)
+                        {
+                            columns.Add(
+                            model => 
+                                "<div class='text-center'>"+
+                                "<button class='btn btn-primary btn-sm' data-id='"+model.CategoryId+"' id='btn-edit'><i class='fa fa-pencil'></i></button>"+
+                                "<span style='padding-left: 5px'></span>"+
+                                "<button class='btn btn-danger btn-sm' data-id='"+model.CategoryId+"' id='btn-delete'><i class='fa fa-trash-o'></i></button>"+
+                                "</div>"
+                            ).Encoded(false).Titled("Action");
+                        }
+                       
+                    })
+                    .Empty("No data found")
+                    .Filterable()
+                    .Sortable()
+                    .Pageable(pager =>
+                    {
+                        pager.PageSizes = new Dictionary<int, string>
+                        {
+                            { 500, "All" },
+                            { 10, "10" },
+                            { 20, "20" },
+                            { 50, "50" },
+                            { 100, "100" },
+                        };
+                        pager.ShowPageSizes = true;
+                        pager.RowsPerPage = 20;
+                    })
+                    )
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+@Html.AntiForgeryToken()
+
+@Html.Partial("ModalCreateCategory")
+
+@Html.Partial("ModalEditCategory")
+
+@section Scripts{
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <script>
+        [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+            new MvcGrid(element);
+        });
+        
+        $(function (){
+            let token = $('input[name="__RequestVerificationToken"]').val();
+            
+            function InputOnlyPrice(ctn) {
+                  $(document).on('keypress', ctn, function (e) {
+    
+                      $(ctn).on('input', function (e) {
+                          if (/^(\d+(\.\d{0,3})?)?$/.test($(this).val())) {
+                              $(this).data('prevValue', $(this).val());
+                          } else {
+                              $(this).val($(this).data('prevValue') || '');
+                          }
+                      }).trigger('input');
+                  });
+              }
+              
+              // only price
+              InputOnlyPrice('#frm-create-category #Price');
+              InputOnlyPrice('#frm-create-category #Whole');
+              InputOnlyPrice('#frm-create-category #VIP');
+              InputOnlyPrice('#frm-create-category #Discount');
+              
+              InputOnlyPrice('#frm-edit-category #Price');
+              InputOnlyPrice('#frm-edit-category #Whole');
+              InputOnlyPrice('#frm-edit-category #VIP');
+              InputOnlyPrice('#frm-edit-category #Discount');  
+              
+            // create
+            $(document).on('submit','#frm-create-category',function (e){
+                e.preventDefault();
+                let form = $('#frm-create-category').serializeArray();
+                $.ajax({
+                       type: 'Post',
+                       url: '/Category/Create',
+                       data: form,
+                       success: function (response){
+                           if (response.type){
+                               alert(response.type);
+                               return false;
+                           }
+                           window.location.reload();
+                       }
+                   });
+            });
+            
+            // remove
+            $(document).on('click','#btn-delete',function (e){
+                e.preventDefault();
+                let con = confirm("Are you sure remove ?");
+                if (con){
+                    $.ajax({
+                        type: 'Post',
+                        url: '/Category/Delete',
+                        data: {id: $(this).attr('data-id'), __RequestVerificationToken: token},
+                        success: function (response){
+                            if (response.error !== ''){
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+            
+            
+            // edit
+            $(document).on('click','#btn-edit',function (){
+                $('#modal-edit-category').modal('show');
+                
+                let row = $(this).closest('tr');
+                
+                $('#frm-edit-category #CategoryId').val($(this).attr('data-id').trim());
+                $('#frm-edit-category #Name').val(row.find("td:eq(2)").text().trim());
+                $('#frm-edit-category #Price').val(parseFloat(row.find("td:eq(3)").text().trim()));
+                $('#frm-edit-category #Whole').val(parseFloat(row.find("td:eq(4)").text().trim()));
+                $('#frm-edit-category #VIP').val(parseFloat(row.find("td:eq(5)").text().trim()));
+                $('#frm-edit-category #Discount').val(parseFloat(row.find("td:eq(6)").text().trim()));
+            });
+            
+            
+            // update
+            $(document).on('submit','#frm-edit-category',function (e){
+                e.preventDefault();
+                let form = $('#frm-edit-category').serializeArray();
+                $.ajax({
+                       type: 'Post',
+                       url: '/Category/Update',
+                       data: form,
+                       success: function (response){
+                           if (response.type){
+                               alert(response.type);
+                               return false;
+                           }
+                           
+                           window.location.reload();
+                       }
+                   });
+            });
+                       
+        });
+       
+
+    </script>
+}

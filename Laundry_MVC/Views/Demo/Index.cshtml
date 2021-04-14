@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Laundry_MVC.Models.Customer>
+
+@{
+    ViewBag.Title = "Demo";
+    var webGrid = new WebGrid(source: Model);
+}
+
+<style type="text/css">
+  
+    .Pager span
+    {
+        text-align: center;
+        color: #999;
+        display: inline-block;
+        width: 20px;
+        background-color: #A1DCF2;
+        margin-right: 3px;
+        line-height: 150%;
+        border: 1px solid #3AC0F2;
+    }
+    .Pager a
+    {
+        text-align: center;
+        display: inline-block;
+        width: 20px;
+        background-color: #3AC0F2;
+        color: #fff;
+        border: 1px solid #3AC0F2;
+        margin-right: 3px;
+        line-height: 150%;
+        text-decoration: none;
+    }
+</style>
+
+<div class="card card-danger bg-white" style="background: #fff">
+  <div class="card-body">
+    <div class="table-responsive">
+      @webGrid.GetHtml(
+        htmlAttributes: new {@id = "WebGrid", @class = "table table-bordered table-fixed"},
+        columns: webGrid.Columns(
+          webGrid.Column("CustomerId", "Customer "),
+          webGrid.Column("Name", "Customer "),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("Name", "Customer "),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("CustomerId", "Customer "),
+          webGrid.Column("Name", "Customer"),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("Name", "Customer ")
+          )
+        )
+    </div>
+  </div>
+</div>
+
+ <h4>Customers</h4>
+    <hr/>
+<table class="table" id="tblCustomers" cellpadding="0" cellspacing="0">
+    <tr>
+        <th><a href="javascript:;">CustomerID</a></th>
+        <th><a href="javascript:;">ContactName</a></th>
+        <th><a href="javascript:;">Phone</a></th>
+        <th><a href="javascript:;">Type</a></th>
+    </tr>
+    <tr style="display:none">
+        <td>CustomerID</td>
+        <td>ContactName</td>
+        <td>Phone</td>
+        <td>Type</td>
+    </tr>
+</table>
+
+<div class="Pager"></div>
+
+@Html.AntiForgeryToken()
+
+<script src="~/Scripts/ASPSnippets_Pager.min.js"></script>
+
+@section Scripts
+{
+  <script>
+    $(function (){
+        let token = $('input[name="__RequestVerificationToken"]').val();
+      
+        $.getJSON('/api/Service', function (data){
+           let list = data.Data;
+           for (let item in list){
+              // console.log(list[item].Name);
+           }
+        });
+        
+        let filterSearch = {
+          customerName: "Thary",
+          __RequestVerificationToken: token
+        };
+        
+        $.ajax({
+          type: "POST",
+          url : "/Demo/Customer",
+          data: filterSearch,
+         // contentType: "application/json; charset=utf-8",
+        //  dataType: "json",
+          success: OnSuccess,
+          
+        })
+        
+        function OnSuccess(response) {
+            console.log(response)
+            var model = response;
+            var row = $("#tblCustomers tr:last-child").removeAttr("style").clone(true);
+            $("#tblCustomers tr").not($("#tblCustomers tr:first-child")).remove();
+            $.each(model, function () {
+                var customer = this;
+                $("td", row).eq(0).html(customer.CustomerId);
+                $("td", row).eq(1).html(customer.Name);
+                $("td", row).eq(2).html(customer.Phone);
+                $("td", row).eq(3).html(customer.Type);
+                $("#tblCustomers").append(row);
+                row = $("#tblCustomers tr:last-child").clone(true);
+            });
+            
+            $(".Pager").ASPSnippets_Pager({
+                                    ActiveCssClass: "current",
+                                    PagerCssClass: "pager",
+                                    PageIndex: model.PageIndex,
+                                    PageSize: model.PageSize,
+                                    RecordCount: model.RecordCount
+                                });
+        };
+        
+         
+    });
+  </script>
+}
+

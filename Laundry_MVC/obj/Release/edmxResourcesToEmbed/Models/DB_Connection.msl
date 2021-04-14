@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Laundry_DBModelStoreContainer" CdmEntityContainer="DB_Connection">
+    <FunctionImportMapping FunctionImportName="GetCategory" FunctionName="Laundry_DBModel.Store.GetCategory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Laundry_DBModel.GetCategory_Result">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Thary" ColumnName="Thary" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="End" ColumnName="End" />
+          <ScalarProperty Name="Start" ColumnName="Start" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="VIP" ColumnName="VIP" />
+          <ScalarProperty Name="Whole" ColumnName="Whole" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Commissions">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Commission">
+        <MappingFragment StoreEntitySet="Commission">
+          <ScalarProperty Name="UserUpdate" ColumnName="UserUpdate" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Percent" ColumnName="Percent" />
+          <ScalarProperty Name="CommissionId" ColumnName="CommissionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configs">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Config">
+        <MappingFragment StoreEntitySet="Config">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="key" ColumnName="key" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Currencies">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Currency">
+        <MappingFragment StoreEntitySet="Currency">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Noted" ColumnName="Noted" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Laundaries">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Laundary">
+        <MappingFragment StoreEntitySet="Laundary">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="PercentCommission" ColumnName="PercentCommission" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="QrCode" ColumnName="QrCode" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LaundryId" ColumnName="LaundryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Receipts">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Receipt">
+        <MappingFragment StoreEntitySet="Receipt">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ReceiptId" ColumnName="ReceiptId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="Role1" ColumnName="Role" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trackers">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Tracker">
+        <MappingFragment StoreEntitySet="Tracker">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="ip" ColumnName="ip" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="Laundry_DBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="Delete" ColumnName="Delete" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Service">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="PriceDollar" ColumnName="PriceDollar" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="PriceRiel" ColumnName="PriceRiel" />
+          <ScalarProperty Name="Service1" ColumnName="Service" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceTypes">
+      <EntityTypeMapping TypeName="Laundry_DBModel.ServiceType">
+        <MappingFragment StoreEntitySet="ServiceType">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ServiceType1" ColumnName="ServiceType" />
+          <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Register User</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <form method="post" action="/User/Register">
+                    @Html.AntiForgeryToken()
+                                        
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name" value="@TempData["Name"]">
+                            <label for="Name" class="text-danger">@TempData["MessageName"]</label>
+                        </div>
+                        
+                         <div class="form-group col-md-12">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" id="Username" name="Username" placeholder="Enter Username" value="@TempData["Username"]">
+                            <label for="Username" class="text-danger">@TempData["Username"]</label>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Enter Password" value="@TempData["Password"]">
+                            <label for="Password" class="text-danger">@TempData["Password"]</label>
+                        </div>
+                        
+                         <div class="form-group col-md-12">
+                             <label for="Status">Status</label>
+                             <select id="Status" name="Status" class="form-control">
+                                 <option value="Enable">Enable</option>
+                                 <option value="Disable">Disable</option>
+                             </select>
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-success btn-sm" style="float: right">Save Close</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

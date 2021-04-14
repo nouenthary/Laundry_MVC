@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Laundry_MVC.Models.Customer>
+
+@{
+    ViewBag.Title = "Demo";
+    var webGrid = new WebGrid(source: Model);
+}
+
+<style>
+ 
+   
+</style>
+
+<div class="card card-danger bg-white" style="background: #fff">
+  <div class="card-body">
+    <div class="table-responsive">
+      @webGrid.GetHtml(
+        htmlAttributes: new {@id = "WebGrid", @class = "table table-bordered table-fixed"},
+        columns: webGrid.Columns(
+          webGrid.Column("CustomerId", "Customer "),
+          webGrid.Column("Name", "Customer "),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("Name", "Customer "),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("CustomerId", "Customer "),
+          webGrid.Column("Name", "Customer"),
+          webGrid.Column("Phone", "Phone"),
+          webGrid.Column("Noted", "Noted"),
+          webGrid.Column("Name", "Customer ")
+          )
+        )
+    </div>
+  </div>
+</div>
+
+
+@section Scripts
+{
+  <script>
+    $(function (){
+        $.getJSON('/api/Service', function (data){
+           let list = data.Data;
+           for (let item in list){
+             console.log(list[item].Name);
+           }
+        });
+    });
+  </script>
+}
+

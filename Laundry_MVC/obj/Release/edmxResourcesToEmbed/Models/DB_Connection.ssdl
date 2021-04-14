@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Laundry_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="float" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+    <Property Name="Whole" Type="float" />
+    <Property Name="VIP" Type="float" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="Start" Type="varchar" MaxLength="255" />
+    <Property Name="End" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Commission">
+    <Key>
+      <PropertyRef Name="CommissionId" />
+    </Key>
+    <Property Name="CommissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Percent" Type="float" />
+    <Property Name="Date" Type="nvarchar" MaxLength="53" />
+    <Property Name="Time" Type="nvarchar" MaxLength="53" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="UserUpdate" Type="int" />
+  </EntityType>
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="key" Type="nvarchar" MaxLength="255" />
+    <Property Name="value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Date" Type="nvarchar" MaxLength="55" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Phone" Type="varchar" MaxLength="255" />
+    <Property Name="Noted" Type="nvarchar(max)" />
+    <Property Name="Date" Type="nvarchar" MaxLength="55" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="Type" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="EndDate" Type="nvarchar" MaxLength="55" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Total" Type="float" />
+    <Property Name="StartDate" Type="nvarchar" MaxLength="55" />
+    <Property Name="CustomerId" Type="int" />
+  </EntityType>
+  <EntityType Name="Laundary">
+    <Key>
+      <PropertyRef Name="LaundryId" />
+    </Key>
+    <Property Name="LaundryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Weight" Type="float" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="CustomerId" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="nvarchar" MaxLength="55" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="QrCode" Type="nvarchar" MaxLength="255" />
+    <Property Name="InvoiceId" Type="int" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="PercentCommission" Type="float" />
+    <Property Name="Commission" Type="float" />
+    <Property Name="Type" Type="varchar" MaxLength="255" />
+    <Property Name="Time" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Receipt">
+    <Key>
+      <PropertyRef Name="ReceiptId" />
+    </Key>
+    <Property Name="ReceiptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="varchar" MaxLength="53" />
+    <Property Name="Time" Type="varchar" MaxLength="53" />
+    <Property Name="InvoiceId" Type="int" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" MaxLength="255" />
+    <Property Name="Delete" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceId" />
+    </Key>
+    <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Service" Type="nvarchar" MaxLength="255" />
+    <Property Name="PriceRiel" Type="float" />
+    <Property Name="Date" Type="nvarchar" MaxLength="255" />
+    <Property Name="Time" Type="nvarchar" MaxLength="255" />
+    <Property Name="Auditor" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="ServiceTypeId" Type="int" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="PriceDollar" Type="float" />
+  </EntityType>
+  <EntityType Name="ServiceType">
+    <Key>
+      <PropertyRef Name="ServiceTypeId" />
+    </Key>
+    <Property Name="ServiceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceType" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="nvarchar" MaxLength="255" />
+    <Property Name="Time" Type="nvarchar" MaxLength="255" />
+    <Property Name="Auditor" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Tracker">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="255" />
+    <Property Name="ip" Type="varchar" MaxLength="255" />
+    <Property Name="location" Type="varchar" MaxLength="255" />
+    <Property Name="Date" Type="varchar" MaxLength="55" />
+    <Property Name="Time" Type="varchar" MaxLength="55" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Username" Type="varchar" MaxLength="255" />
+    <Property Name="Password" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+    <Property Name="Photo" Type="varchar" MaxLength="255" />
+    <Property Name="Phone" Type="varchar" MaxLength="255" />
+    <Property Name="IP" Type="varchar" MaxLength="255" />
+    <Property Name="Address" Type="varchar" MaxLength="255" />
+    <Property Name="Delete" Type="tinyint" />
+    <Property Name="RoleId" Type="int" />
+    <Property Name="Gender" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK__Commissio__UserI__3B75D760">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__UserId__48CFD27E">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Catego__21B6055D">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Custom__22AA2996">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Invoic__276EDEB3">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+    <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__UserId__34C8D9D1">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__RoleId__32E0915F">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="GetCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Laundry_DBModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Laundary" EntityType="Self.Laundary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceType" EntityType="Self.ServiceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tracker" EntityType="Self.Tracker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Self.FK__Commissio__UserI__3B75D760">
+      <End Role="User" EntitySet="User" />
+      <End Role="Commission" EntitySet="Commission" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__UserId__48CFD27E" Association="Self.FK__Invoice__UserId__48CFD27E">
+      <End Role="User" EntitySet="User" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Catego__21B6055D" Association="Self.FK__Laundary__Catego__21B6055D">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Laundary" EntitySet="Laundary" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Custom__22AA2996" Association="Self.FK__Laundary__Custom__22AA2996">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Laundary" EntitySet="Laundary" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Invoic__276EDEB3" Association="Self.FK__Laundary__Invoic__276EDEB3">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="Laundary" EntitySet="Laundary" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__UserId__34C8D9D1" Association="Self.FK__Laundary__UserId__34C8D9D1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Laundary" EntitySet="Laundary" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__RoleId__32E0915F" Association="Self.FK__User__RoleId__32E0915F">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

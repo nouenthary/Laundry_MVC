@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Laundry_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DB_Connection" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetCategory" ReturnType="Collection(Laundry_DBModel.GetCategory_Result)" />
+    <EntitySet Name="Categories" EntityType="Laundry_DBModel.Category" />
+    <EntitySet Name="Commissions" EntityType="Laundry_DBModel.Commission" />
+    <EntitySet Name="Configs" EntityType="Laundry_DBModel.Config" />
+    <EntitySet Name="Currencies" EntityType="Laundry_DBModel.Currency" />
+    <EntitySet Name="Customers" EntityType="Laundry_DBModel.Customer" />
+    <EntitySet Name="Invoices" EntityType="Laundry_DBModel.Invoice" />
+    <EntitySet Name="Laundaries" EntityType="Laundry_DBModel.Laundary" />
+    <EntitySet Name="Permissions" EntityType="Laundry_DBModel.Permission" />
+    <EntitySet Name="Receipts" EntityType="Laundry_DBModel.Receipt" />
+    <EntitySet Name="Roles" EntityType="Laundry_DBModel.Role" />
+    <EntitySet Name="Services" EntityType="Laundry_DBModel.Service" />
+    <EntitySet Name="ServiceTypes" EntityType="Laundry_DBModel.ServiceType" />
+    <EntitySet Name="Trackers" EntityType="Laundry_DBModel.Tracker" />
+    <EntitySet Name="Users" EntityType="Laundry_DBModel.User" />
+    <AssociationSet Name="FK__Laundary__Catego__21B6055D" Association="Laundry_DBModel.FK__Laundary__Catego__21B6055D">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Laundry_DBModel.FK__Commissio__UserI__3B75D760">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Commission" EntitySet="Commissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Custom__22AA2996" Association="Laundry_DBModel.FK__Laundary__Custom__22AA2996">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__UserId__48CFD27E" Association="Laundry_DBModel.FK__Invoice__UserId__48CFD27E">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Invoic__276EDEB3" Association="Laundry_DBModel.FK__Laundary__Invoic__276EDEB3">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Catego__01142BA1" Association="Laundry_DBModel.FK__Laundary__Catego__01142BA1">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__UserId__34C8D9D1" Association="Laundry_DBModel.FK__Laundary__UserId__34C8D9D1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Permissio__UserI__72C60C4A" Association="Laundry_DBModel.FK__Permissio__UserI__72C60C4A">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Permission" EntitySet="Permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__RoleId__32E0915F" Association="Laundry_DBModel.FK__User__RoleId__32E0915F">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="GetCategory_Result">
+    <Property Type="Int32" Name="CategoryId" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="255" />
+    <Property Type="Double" Name="Price" Nullable="true" />
+    <Property Type="String" Name="Thary" Nullable="false" MaxLength="5" />
+  </ComplexType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Delete" Type="Byte" />
+    <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Whole" Type="Double" />
+    <Property Name="VIP" Type="Double" />
+    <Property Name="Discount" Type="Double" />
+    <Property Name="Start" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="End" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Catego__21B6055D" FromRole="Category" ToRole="Laundary" />
+  </EntityType>
+  <EntityType Name="Commission">
+    <Key>
+      <PropertyRef Name="CommissionId" />
+    </Key>
+    <Property Name="CommissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Percent" Type="Double" />
+    <Property Name="Date" Type="String" MaxLength="53" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="53" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Delete" Type="Byte" />
+    <Property Name="UserUpdate" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__Commissio__UserI__3B75D760" FromRole="Commission" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="key" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Rate" Type="Double" />
+    <Property Name="Date" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Noted" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+    <Property Name="Delete" Type="Byte" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Custom__22AA2996" FromRole="Customer" ToRole="Laundary" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceId" />
+    </Key>
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Delete" Type="Byte" />
+    <Property Name="EndDate" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Total" Type="Double" />
+    <Property Name="StartDate" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerId" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__Invoice__UserId__48CFD27E" FromRole="Invoice" ToRole="User" />
+    <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Invoic__276EDEB3" FromRole="Invoice" ToRole="Laundary" />
+  </EntityType>
+  <EntityType Name="Laundary">
+    <Key>
+      <PropertyRef Name="LaundryId" />
+    </Key>
+    <Property Name="LaundryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Weight" Type="Double" />
+    <Property Name="ServiceId" Type="Int32" />
+    <Property Name="CustomerId" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Double" />
+    <Property Name="InvoiceId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="PercentCommission" Type="Double" />
+    <Property Name="Commission" Type="Double" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Double" />
+    <NavigationProperty Name="Category" Relationship="Laundry_DBModel.FK__Laundary__Catego__21B6055D" FromRole="Laundary" ToRole="Category" />
+    <NavigationProperty Name="Customer" Relationship="Laundry_DBModel.FK__Laundary__Custom__22AA2996" FromRole="Laundary" ToRole="Customer" />
+    <NavigationProperty Name="Invoice" Relationship="Laundry_DBModel.FK__Laundary__Invoic__276EDEB3" FromRole="Laundary" ToRole="Invoice" />
+    <NavigationProperty Name="Service" Relationship="Laundry_DBModel.FK__Laundary__Catego__01142BA1" FromRole="Laundary" ToRole="Service" />
+    <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__Laundary__UserId__34C8D9D1" FromRole="Laundary" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Create_Order" Type="Byte" />
+    <Property Name="Setting" Type="Byte" />
+    <Property Name="Sale_Report" Type="Byte" />
+    <Property Name="Create_Customer" Type="Byte" />
+    <Property Name="Create_Service" Type="Byte" />
+    <Property Name="Backup" Type="Byte" />
+    <Property Name="Create_User" Type="Byte" />
+    <Property Name="Report_Monthly" Type="Byte" />
+    <Property Name="Report_Daily" Type="Byte" />
+    <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__Permissio__UserI__72C60C4A" FromRole="Permission" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Receipt">
+    <Key>
+      <PropertyRef Name="ReceiptId" />
+    </Key>
+    <Property Name="ReceiptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="String" MaxLength="53" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="53" FixedLength="false" Unicode="false" />
+    <Property Name="InvoiceId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Delete" Type="Byte" />
+    <NavigationProperty Name="Users" Relationship="Laundry_DBModel.FK__User__RoleId__32E0915F" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="ServiceId" />
+    </Key>
+    <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Auditor" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Discount" Type="Double" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Catego__01142BA1" FromRole="Service" ToRole="Laundary" />
+  </EntityType>
+  <EntityType Name="ServiceType">
+    <Key>
+      <PropertyRef Name="ServiceTypeId" />
+    </Key>
+    <Property Name="ServiceTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceTypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Auditor" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tracker">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Photo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="IP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Delete" Type="Byte" />
+    <Property Name="RoleId" Type="Int32" />
+    <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Commissions" Relationship="Laundry_DBModel.FK__Commissio__UserI__3B75D760" FromRole="User" ToRole="Commission" />
+    <NavigationProperty Name="Invoices" Relationship="Laundry_DBModel.FK__Invoice__UserId__48CFD27E" FromRole="User" ToRole="Invoice" />
+    <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__UserId__34C8D9D1" FromRole="User" ToRole="Laundary" />
+    <NavigationProperty Name="Permissions" Relationship="Laundry_DBModel.FK__Permissio__UserI__72C60C4A" FromRole="User" ToRole="Permission" />
+    <NavigationProperty Name="Role" Relationship="Laundry_DBModel.FK__User__RoleId__32E0915F" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK__Laundary__Catego__21B6055D">
+    <End Type="Laundry_DBModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Commissio__UserI__3B75D760">
+    <End Type="Laundry_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Commission" Role="Commission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Commission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Custom__22AA2996">
+    <End Type="Laundry_DBModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__UserId__48CFD27E">
+    <End Type="Laundry_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Invoic__276EDEB3">
+    <End Type="Laundry_DBModel.Invoice" Role="Invoice" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__Catego__01142BA1">
+    <End Type="Laundry_DBModel.Service" Role="Service" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Laundary__UserId__34C8D9D1">
+    <End Type="Laundry_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Permissio__UserI__72C60C4A">
+    <End Type="Laundry_DBModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Permission" Role="Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Permission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__RoleId__32E0915F">
+    <End Type="Laundry_DBModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,72 @@
+﻿@using Laundry_MVC.Models
+
+<div class="modal fade" id="modal-add-customer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> New Customer</h4>
+            </div>
+            <form method="post" id="frm-create-customer">
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="form-group">
+                        <label for="Name">Customer</label>
+                        
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Customer" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Phone">Phone</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <input type="text" class="form-control" id="Phone" name="Phone" placeholder="Enter Phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer Type</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <select id="Type" name="Type" class="form-control">
+                                @foreach (var item in Constraint.CustomerType)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Noted">Note</label>
+                        <textarea name="Noted" id="Noted" class="form-control"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,130 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Laundry System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Content/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/Content/plugins/iCheck/square/blue.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+    .bg{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url('https://www.partselect.com/assets/content/58702/laundry-cheat-sheet-open-graph.png');
+    }
+
+  </style>
+</head>
+<body class="hold-transition login-page bg">
+<div class="login-box">
+    
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <div class="login-logo">
+                @* <a href="#"><b>Admin</b>LTE</a> *@
+                <img src="~/Content/image/image.jpg" width="140px" alt="">
+            </div>
+        <p class="login-box-msg">Sign in to start your session</p>
+        @if (TempData["Message"] != null)
+        {
+            <label class="label label-danger">@TempData["Message"]</label>
+        }
+
+        <form action="@Url.Action("Login", "Login")" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="Username" name="Username" placeholder="Username">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" name="remember" id="remember"> Remember Me
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <!-- /.social-auth-links -->
+
+        <a href="#">I forgot my password</a><br>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery 3 -->
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+
+@Html.AntiForgeryToken()
+<script>
+  $(function () {
+     let token = $('input[name="__RequestVerificationToken"]').val(); 
+      
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
+       
+     $.get("https://api.ipdata.co?api-key=test", function(response) {
+        // console.log(response);
+         Set(response.country_name,response.ip,response.country_code);
+     }, "jsonp");
+     
+     function Set(country, ip , location){
+        // console.log(country, ip , location);return
+        $.ajax({
+            type: 'post',
+            url: "/Login/GetCurrent",
+            data: {country, ip , location,__RequestVerificationToken: token},
+            success:function (response){
+                console.log(response);
+            }
+         });   
+     } 
+     
+     });
+</script>
+</body>
+</html>

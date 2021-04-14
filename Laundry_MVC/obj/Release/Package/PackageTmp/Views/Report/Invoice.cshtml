@@ -1,0 +1,125 @@
+﻿@using Laundry_MVC.Controllers
+@model List<Laundry_MVC.Models.Laundary>
+@{
+    Layout = null;
+
+    var controller = ViewContext.Controller as ReportController;
+    System.Diagnostics.Debug.Assert(controller != null, nameof(controller) + " != null");
+    controller.GetServicePrice(234,234);
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Invoice</title>
+    <style>
+       body{
+        font-family: 'Nokora', serif !important;
+        font-size: 12px !important;
+       }
+       
+       td{
+        padding: 2px !important;
+       }
+    </style>
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nokora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div style="margin-left: 10px">
+    <div style="background: #fff; width: 350px">
+        <div class="text-header text-center">
+            <h1 style="font-weight: bold;">@ViewBag.Title</h1> 
+            @* <h1 style="font-weight: bold;">បោកគក់ Online @ViewBag.Title</h1>*@
+        </div>
+        <div class="text-center" style="margin-top: -10px; padding-bottom: 10px">
+            <img src="../../Content/image/photo_2021-03-15_20-07-52.jpg" height="60px" alt="" style="padding-left: 55px">
+            @if (TempData["QrCode"] != null)
+            {
+                <img src="@TempData["QrCode"]" width="60px" alt="" style="float: right">
+            }
+        </div>
+        <div class="text-header">
+            <span style="padding-left: 2px">ថ្ងៃខែឆ្នាំ : @ViewBag.DatePrint</span>
+            <span style="float: right">អតិថិជន : @ViewBag.Customer</span>
+        </div>
+        <div class="text-header" style="padding-top: 5px">
+            <span style="padding-left: 2px">វិក័យប័ត្រ : @ViewBag.GetLastReceipt</span>
+            <span style="float: right">ទូរស័ព្ទ : @ViewBag.Phone</span>
+        </div>
+        <br />
+        <table class="table">
+            <thead>
+            <tr style="border-top: 1.5px solid #000000;">
+                <td width="20%">ប្រភេទ</td>
+                <td width="20%">ចំនួនគីឡូ</td>
+                <td width="10%">ខ្នាត</td>
+                <td width="10%">ចំនួន</td>
+                <td width="20%">តម្លៃ</td>
+                <td width="20%" style="text-align: end">សរុប</td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="border-top: 1.5px solid #000000">@item.Category.Name</td>
+                    <td style="border-top: 1.5px solid #000000">@item.Weight</td>
+                    <td style="border-top: 1.5px solid #000000">គីឡូ</td>
+                    <td style="border-top: 1.5px solid #000000">@item.Qty</td>
+                    <td style="border-top: 1.5px solid #000000">@controller.GetServicePrice(item.CategoryId,item.CustomerId) R</td>
+                    <td style="border-top: 1.5px solid #000000;text-align: end">@item.Amount R</td>
+                </tr>
+            }
+            @* <tr> *@
+            @*     <td>បោក</td> *@
+            @*     <td>10</td> *@
+            @*     <td>គីឡូ</td> *@
+            @*     <td>100</td> *@
+            @*     <td>1000</td> *@
+            @*     <td>10000</td> *@
+            @* </tr> *@
+            </tbody>
+            <tfoot>
+            <tr>
+                <td style="border-top: 1.5px solid #000000">សរុបគីឡូ</td>
+                <td style="border-top: 1.5px solid #000000">@ViewBag.Kgs</td>
+                <td style="border-top: 1.5px solid #000000">សរុប</td>
+                <td style="border-top: 1.5px solid #000000">@ViewBag.Pcs</td>
+                <td style="border-top: 1.5px solid #000000">តំលៃសរុប(R)</td>
+                <td style="border-top: 1.5px solid #000000 ; text-align: end">@ViewBag.Khr R</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #000000;">
+                <td style="border-top: 0"></td>
+                <td style="border-top: 0"></td>
+                <td style="border-top: 0"></td>
+                <td style="border-top: 0"></td>
+                <td style="border-top: 0; font-size: 11px">តំលៃសរុប($)</td>
+                <td style="border-top: 0; text-align: end; font-size: 11px">@ViewBag.Dollar $</td>
+            </tr>
+            </tfoot>
+        </table>
+
+        @*<p style="padding-left: 2px; text-align: justify">ចំណាំ : ប្រសិនបើអតិថិជនបាត់សំលៀកបំពាក់ក្រុមហ៊ុននឺងសង១ទ្វេ ១០ នៃតំលៃបោកអ៊ុត ។ ប្រសិនបើអតិថិជនមិនបានមកយកសំលៀកបំពាក់ក្នុងរយះពេល១ខែទុកជាអសាបង់ ។</p>*@
+
+        @*<p>ទូរស័ព្ទលេខ : 023 232 888, 092 900 991, 069 866 636</p>*@
+        @* <p style="text-align: justify">អាសយដ្ឋាន : ផ្ទះលេខ 147 ផ្លូវលេខ​ 217, សង្កាត់​ដង្កោរ, ខណ្ឌដង្កោរ, រាជាធានីភ្នំពេញ</p>*@
+        <p style="padding-left: 2px; text-align: justify">@ViewBag.Noted</p>
+        <p style="padding-left: 2px; text-align: justify; margin-top : -5px; font-size: 10px">@ViewBag.PhoneInvoice</p>
+        <p style="padding-left: 2px; text-align: justify;  margin-top : -5px;">@ViewBag.Address</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+      window.onload = function() {
+            window.print();      
+      }
+ </script>
+
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+
+</body>
+</html>
