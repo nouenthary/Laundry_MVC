@@ -89,23 +89,37 @@
     <EntitySetMapping Name="Laundaries">
       <EntityTypeMapping TypeName="Laundry_DBModel.Laundary">
         <MappingFragment StoreEntitySet="Laundary">
+          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Commission" ColumnName="Commission" />
           <ScalarProperty Name="PercentCommission" ColumnName="PercentCommission" />
           <ScalarProperty Name="Qty" ColumnName="Qty" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Delete" ColumnName="Delete" />
           <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-          <ScalarProperty Name="QrCode" ColumnName="QrCode" />
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="LaundryId" ColumnName="LaundryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permissions">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Permission">
+        <MappingFragment StoreEntitySet="Permission">
+          <ScalarProperty Name="Report_Daily" ColumnName="Report_Daily" />
+          <ScalarProperty Name="Report_Monthly" ColumnName="Report_Monthly" />
+          <ScalarProperty Name="Create_User" ColumnName="Create_User" />
+          <ScalarProperty Name="Backup" ColumnName="Backup" />
+          <ScalarProperty Name="Create_Service" ColumnName="Create_Service" />
+          <ScalarProperty Name="Create_Customer" ColumnName="Create_Customer" />
+          <ScalarProperty Name="Sale_Report" ColumnName="Sale_Report" />
+          <ScalarProperty Name="Setting" ColumnName="Setting" />
+          <ScalarProperty Name="Create_Order" ColumnName="Create_Order" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -126,6 +140,33 @@
           <ScalarProperty Name="Delete" ColumnName="Delete" />
           <ScalarProperty Name="Role1" ColumnName="Role" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Services">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Service">
+        <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceTypes">
+      <EntityTypeMapping TypeName="Laundry_DBModel.ServiceType">
+        <MappingFragment StoreEntitySet="ServiceType">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ServiceTypeName" ColumnName="ServiceTypeName" />
+          <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -159,31 +200,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Services">
-      <EntityTypeMapping TypeName="Laundry_DBModel.Service">
-        <MappingFragment StoreEntitySet="Service">
-          <ScalarProperty Name="PriceDollar" ColumnName="PriceDollar" />
-          <ScalarProperty Name="Discount" ColumnName="Discount" />
-          <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+    <EntitySetMapping Name="Agents">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Agent">
+        <MappingFragment StoreEntitySet="Agent">
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="PriceRiel" ColumnName="PriceRiel" />
-          <ScalarProperty Name="Service1" ColumnName="Service" />
-          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ServiceTypes">
-      <EntityTypeMapping TypeName="Laundry_DBModel.ServiceType">
-        <MappingFragment StoreEntitySet="ServiceType">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Auditor" ColumnName="Auditor" />
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="Laundry_DBModel.Type">
+        <MappingFragment StoreEntitySet="Type">
           <ScalarProperty Name="Time" ColumnName="Time" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="ServiceType1" ColumnName="ServiceType" />
-          <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Type1" ColumnName="Type" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

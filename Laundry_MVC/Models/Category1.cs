@@ -12,28 +12,22 @@ namespace Laundry_MVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class Category1
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
+        public Category1()
         {
             this.AgentInvoviceDetails = new HashSet<AgentInvoviceDetail>();
-            this.Laundaries = new HashSet<Laundary>();
+            this.Products = new HashSet<Product>();
         }
     
-        public int ServiceId { get; set; }
-        public string ServiceName { get; set; }
-        public Nullable<double> Price { get; set; }
-        public string Date { get; set; }
-        public string Time { get; set; }
-        public Nullable<int> Auditor { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Status { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public string Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentInvoviceDetail> AgentInvoviceDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Laundary> Laundaries { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -24,7 +24,7 @@
             <span>Customer</span>
         </a>
     </li>
-    
+
     <li class="treeview @(ViewBag.Title == "Report" ? "active" : "")">
         <a href="#">
             <i class="fa fa-bar-chart"></i>
@@ -33,25 +33,56 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
-        
+
         <ul class="treeview-menu">
             <li class="@(ViewBag.Title == "Report" ? "active" : "")">
                 <a href="/Report">
-                    <i class="fa fa-circle-o text-"></i>Sale Report 
+                    <i class="fa fa-circle-o text-"></i>Sale Report
                 </a>
             </li>
-            
+
             <li class="@(ViewBag.Title == "Report" ? "active" : "")">
                 <a href="/Report">
-                    <i class="fa fa-circle-o text-"></i>Sale Commission 
+                    <i class="fa fa-circle-o text-"></i>Sale Commission
                 </a>
             </li>
-            
-            
+
+
         </ul>
 
     </li>
-    
+
+    <li class="treeview @(ViewBag.Title == "Agent" ? "active" : "")">
+
+        <a href="#">
+            <i class="fa fa-dropbox"></i>
+            <span>Agent</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+
+        <ul class="treeview-menu">
+
+            <li class="@(ViewBag.Title == "Agent" ? "active" : "")">
+                <a href="/Agent">
+                    <i class="fa fa-circle-o text-"></i>
+                    <span>Agent</span>
+                </a>
+            </li>
+
+            <li class="@(ViewBag.Title == "Order" ? "active" : "")">
+                <a href="/AgentOrder">
+                    <i class="fa fa-circle-o text-"></i>
+                    <span>Order</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </li>
+
+
     <li class="header">Setting</li>
 
     <li class="treeview @(ViewBag.Title == "Role" ? "active" : "") @(ViewBag.Title == "User" ? "active" : "") @(ViewBag.Title == "Commission" ? "active" : "")">

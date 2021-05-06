@@ -12,28 +12,31 @@ namespace Laundry_MVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class AgentInvoice
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
+        public AgentInvoice()
         {
             this.AgentInvoviceDetails = new HashSet<AgentInvoviceDetail>();
-            this.Laundaries = new HashSet<Laundary>();
         }
     
-        public int ServiceId { get; set; }
-        public string ServiceName { get; set; }
-        public Nullable<double> Price { get; set; }
+        public int Id { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
-        public Nullable<int> Auditor { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<double> TotalDollar { get; set; }
+        public Nullable<double> TotalRiel { get; set; }
+        public Nullable<double> ReceviedReil { get; set; }
+        public Nullable<double> ReceivedDollar { get; set; }
+        public Nullable<double> Amount { get; set; }
         public string Status { get; set; }
-        public Nullable<double> Discount { get; set; }
-        public string Type { get; set; }
+        public string PayBy { get; set; }
+        public string Print { get; set; }
+        public string TranId { get; set; }
+        public string QrCode { get; set; }
+        public string PayStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentInvoviceDetail> AgentInvoviceDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Laundary> Laundaries { get; set; }
     }
 }

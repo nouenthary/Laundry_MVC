@@ -5,21 +5,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="33f7771120f145b496be77a37ce4d940" Name="Diagram1" >
-        <EntityTypeShape EntityType="Laundry_DBModel.Category" Width="1.5" PointX="5.25" PointY="21.375" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Agent" Width="1.5" PointX="12" PointY="15.875" />
+        <EntityTypeShape EntityType="Laundry_DBModel.AgentInvoice" Width="1.5" PointX="12" PointY="11" />
+        <EntityTypeShape EntityType="Laundry_DBModel.AgentInvoviceDetail" Width="1.5" PointX="14.25" PointY="12.375" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Category" Width="1.5" PointX="5.25" PointY="17.625" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Category1" Width="1.5" PointX="9.75" PointY="4.625" />
         <EntityTypeShape EntityType="Laundry_DBModel.Commission" Width="1.5" PointX="5.25" PointY="2.25" />
         <EntityTypeShape EntityType="Laundry_DBModel.Config" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Laundry_DBModel.Currency" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Laundry_DBModel.Customer" Width="1.5" PointX="5.25" PointY="17.125" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Customer" Width="1.5" PointX="5.25" PointY="14.25" />
         <EntityTypeShape EntityType="Laundry_DBModel.Invoice" Width="1.5" PointX="5.25" PointY="5.625" />
         <EntityTypeShape EntityType="Laundry_DBModel.Laundary" Width="1.5" PointX="7.5" PointY="5.125" />
         <EntityTypeShape EntityType="Laundry_DBModel.Permission" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Product" Width="1.5" PointX="12" PointY="4.25" />
         <EntityTypeShape EntityType="Laundry_DBModel.Receipt" Width="1.5" PointX="9.75" PointY="0.75" />
         <EntityTypeShape EntityType="Laundry_DBModel.Role" Width="1.5" PointX="0.75" PointY="6.5" />
-        <EntityTypeShape EntityType="Laundry_DBModel.Service" Width="1.5" PointX="5.25" PointY="13.375" />
-        <EntityTypeShape EntityType="Laundry_DBModel.ServiceType" Width="1.5" PointX="9.75" PointY="3.75" />
-        <EntityTypeShape EntityType="Laundry_DBModel.Tracker" Width="1.5" PointX="9.75" PointY="6.75" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Service" Width="1.5" PointX="5.25" PointY="22.5" />
+        <EntityTypeShape EntityType="Laundry_DBModel.ServiceType" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Tracker" Width="1.5" PointX="7.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Laundry_DBModel.Type" Width="1.5" PointX="9.75" PointY="8.75" />
         <EntityTypeShape EntityType="Laundry_DBModel.User" Width="1.5" PointX="3" PointY="5.25" />
+        <AssociationConnector Association="Laundry_DBModel.FK__AgentInvo__Agent__3A4CA8FD" />
+        <AssociationConnector Association="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8" />
+        <AssociationConnector Association="Laundry_DBModel.FK__AgentInvo__CatId__339FAB6E" />
+        <AssociationConnector Association="Laundry_DBModel.FK__AgentInvo__Produ__32AB8735" />
+        <AssociationConnector Association="Laundry_DBModel.FK__AgentInvo__Servi__3587F3E0" />
         <AssociationConnector Association="Laundry_DBModel.FK__Laundary__Catego__21B6055D" />
+        <AssociationConnector Association="Laundry_DBModel.FK__Product__Categor__2CF2ADDF" />
         <AssociationConnector Association="Laundry_DBModel.FK__Commissio__UserI__3B75D760" />
         <AssociationConnector Association="Laundry_DBModel.FK__Laundary__Custom__22AA2996" />
         <AssociationConnector Association="Laundry_DBModel.FK__Invoice__UserId__48CFD27E" />

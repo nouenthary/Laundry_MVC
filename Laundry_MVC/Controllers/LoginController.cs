@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Laundry_MVC.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Laundry_MVC.Controllers
 {

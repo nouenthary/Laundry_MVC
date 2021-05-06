@@ -1,0 +1,188 @@
+@using Laundry_MVC.Models
+@{
+    ViewBag.Title = "Order";
+
+    var db = new DB_Connection();
+
+    var agents = db.Agents.Where(x => x.Status == "Enable").ToList();
+
+    var categories = db.Categorys.ToList();
+
+    var products = db.Products.Where(x => x.Status == "Enable").ToList();
+
+    var services = db.Services.Where(x => x.Status == "Enable" && x.Type == "Agent").ToList();
+}
+
+<div class="box box-primary">
+    <form method="post" id="frm-order">
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+
+                <div class="form-group col-md-4">
+                    <label for="Name">Name :</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <select class="form-control" id="Name" name="Name" required>
+                            @foreach (var row in agents)
+                            {
+                                <option value="@row.Id">@row.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Tel">Tel :</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <select class="form-control" id="Tel" name="Tel" required>
+                            @foreach (var row in agents)
+                            {
+                                <option value="@row.Id">@row.Tel</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Date">Date :</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="date" class="form-control" id="Date" name="Date"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr/>
+
+
+            <table class="table table-bordered table-striped" id="table-item">
+                <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Product</th>
+                    <th>Service</th>
+                    <th>Pcs(Qty)</th>
+                    <th>Weight</th>
+                    <th class="text-center">
+                        <button type="button" class="btn btn-primary btn-sm" id="btn-add-row">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <select class="form-control" id="CategoryId" name="CategoryId" required>
+                            @foreach (var row in categories)
+                            {
+                                <option value="@row.Id">@row.Name</option>
+                            }
+                        </select>
+                    </td>
+
+                    <td>
+                        <select class="form-control" id="ProductId" name="ProductId" required>
+                            @foreach (var row in products)
+                            {
+                                <option value="@row.Id_">@row.Product1</option>
+                            }
+                        </select>
+                    </td>
+
+
+                    <td>
+                        <select class="form-control" id="ServiceId" name="ServiceId" required>
+                            @foreach (var row in services)
+                            {
+                                <option value="@row.ServiceId">@row.ServiceName</option>
+                            }
+                        </select>
+                    </td>
+
+                    <td>
+                        <input class="form-control" id="Qty" name="Qty" onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                    </td>
+
+                    <td>
+                        <input class="form-control" id="Weight" name="Weight" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"/>
+                    </td>
+
+                    <td class="text-center">
+                        <button type="button" class="btn btn-danger btn-sm" id="btn-remove-item">
+                            <i class="fa fa-minus-circle"></i>
+                        </button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                <i class="fa fa-close"></i> Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Save Order
+            </button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <script>
+           
+         // Add row
+         $(document).on('click','#btn-add-row',function() {           
+             $('#table-item tbody tr:last').clone().insertAfter('#table-item tbody tr:last');
+         }); 
+            
+         // save order  
+         $(document).on('submit','#frm-order',function(e) {
+            e.preventDefault();
+            
+            let phone = $('#Tel').val();
+            
+            let orders = [];
+            
+            $('#table-item tbody tr').each(function () {
+               let row = $(this);
+               
+               orders.push({
+                    CategoryId: row.find('select#CategoryId').val(),
+                    ProductId: row.find('select#ProductId').val(),
+                    ServiceId: row.find('select#ServiceId').val(),
+                    Qty:row.find('input#Qty').val(),
+                    Weight: row.find('input#Weight').val()
+               });
+                
+               console.log(orders);
+            });
+         });  
+         
+         // remove item
+         $(document).on('click','#btn-remove-item',function() {
+            let table = $('#table-item tbody tr').length;
+            
+            if(table === 1){
+                return false;
+            }
+                     
+           $(this).closest("tr").remove();
+         });
+    </script>
+}

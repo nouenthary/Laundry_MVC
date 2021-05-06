@@ -1,0 +1,273 @@
+@model List<Laundry_MVC.Models.Agent>
+@{
+    ViewBag.Title = "Agent";
+}
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
+
+<!-- Custom Tabs -->
+@* <div class="nav-tabs-custom"> *@
+@*     <ul class="nav nav-tabs"> *@
+@*         <li class="active"> *@
+@*             <a href="#tab_1" data-toggle="tab">Agent</a> *@
+@*         </li> *@
+@*         <li> *@
+@*             <a href="#tab_2" data-toggle="tab">Order</a> *@
+@*         </li> *@
+@*         <li> *@
+@*             <a href="#tab_3" data-toggle="tab">Payment</a> *@
+@*         </li> *@
+@*         <li> *@
+@*             <a href="#tab_4" data-toggle="tab">Report</a> *@
+@*         </li> *@
+@*         <li class="dropdown"> *@
+@*             <a class="dropdown-toggle" data-toggle="dropdown" href="#"> *@
+@*                 Dropdown <span class="caret"></span> *@
+@*             </a> *@
+@*             <ul class="dropdown-menu"> *@
+@*                 <li role="presentation"> *@
+@*                     <a role="menuitem" tabindex="-1" href="#">Action</a> *@
+@*                 </li> *@
+@*                 <li role="presentation"> *@
+@*                     <a role="menuitem" tabindex="-1" href="#">Another action</a> *@
+@*                 </li> *@
+@*                 <li role="presentation"> *@
+@*                     <a role="menuitem" tabindex="-1" href="#">Something else here</a> *@
+@*                 </li> *@
+@*                 <li role="presentation" class="divider"></li> *@
+@*                 <li role="presentation"> *@
+@*                     <a role="menuitem" tabindex="-1" href="#">Separated link</a> *@
+@*                 </li> *@
+@*             </ul> *@
+@*         </li> *@
+@*         <li class="pull-right"> *@
+@*             <a href="#" class="text-muted"> *@
+@*                 <i class="fa fa-gear"></i> *@
+@*             </a> *@
+@*         </li> *@
+@*     </ul> *@
+@* *@
+@*     <div class="tab-content"> *@
+@*         <div class="tab-pane active" id="tab_1"> *@
+@* *@
+@* *@
+@*         </div> *@
+@*         <!-- /.tab-pane --> *@
+@*         <div class="tab-pane" id="tab_2"> *@
+@*             Payment *@
+@*         </div> *@
+@*         <!-- /.tab-pane --> *@
+@*         <div class="tab-pane" id="tab_3"> *@
+@*             Report *@
+@*         </div> *@
+@*         <!-- /.tab-pane --> *@
+@*     </div> *@
+@* *@
+@*     <!-- /.tab-content --> *@
+@* </div> *@
+<!-- nav-tabs-custom -->
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <i class="fa fa-dropbox"></i>
+
+        <h3 class="box-title">List Agent</h3>
+        <button class="btn btn-primary btn-sm pull-right" id="btn-add-agent">
+            <i class="fa fa-plus"></i> Add New
+        </button>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+
+
+        @(Html
+              .Grid(Model)
+              .Build(columns =>
+              {
+                  columns.Add(model => model.Name).Titled("Name");
+                  columns.Add(model => model.Tel).Titled("Tel");
+                  columns.Add(model => model.Address).Titled("Address");
+                  columns.Add(model => model.Location).Titled("Map");
+                  columns.Add(model => Html.Partial("_Action", new ViewDataDictionary {{"value", model.Status}, {"id", model.Id}})).Titled("Action");
+              })
+              .UsingFilterMode(GridFilterMode.Row)
+              .Empty("No data found")
+              .Filterable()
+              .Sortable()
+              .Pageable()
+              )
+
+    </div>
+    <!-- /.box-body -->
+</div>
+
+
+@* Create Agent *@
+<div class="modal fade" id="modal-add-agent">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-user"></i> New Agent</h4>
+            </div>
+            <form method="post" id="frm-add-agent">
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+
+                        <div class="form-group col-md-12">
+                            <label for="Name">Name :</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <input class="form-control" id="Id" name="Id" type="hidden">
+                                <input class="form-control" id="Name" name="Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="Tel">Tel :</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input class="form-control" id="Tel" name="Tel" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="Address">Address :</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-home"></i>
+                                </div>
+                                <input class="form-control" id="Address" name="Address" required>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                        <i class="fa fa-close"></i> Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i> Save Order
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+@* Create Agent *@
+
+<script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+<script>
+    [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+       new MvcGrid(element);
+    });
+</script>
+
+
+@section Scripts
+{
+    <script>
+    $(function() {
+          let token = $('input[name="__RequestVerificationToken"]').val(); 
+        
+          // add  show modal     
+          $('#btn-add-agent').click(function() {
+              $('#modal-add-agent').modal('show');             
+          });
+          
+          // save 
+          $('#frm-add-agent').submit(function(e) {
+                e.preventDefault();
+                let form = $(this).serializeArray();
+                
+                let id = $('#frm-add-agent #Id').val();
+                                
+                if(id){
+                    $.ajax({
+                        type: 'put',
+                        url: '/Agent/Update',
+                        data: form,
+                        success: function(r) {
+                          if(r.error){
+                              alert(r.error);
+                              return false;
+                          }
+                          window.location.reload();
+                        }
+                    });
+                    return false;
+                }
+                                    
+                $.ajax({
+                    type: 'post',
+                    url: '/Agent/Store',
+                    data: form,
+                    success: function(r) {
+                      if(r.error){
+                          alert(r.error);
+                          return false;
+                      }
+                      window.location.reload();
+                    }
+                });
+          });
+          
+        
+          // edit      
+          $(document).on('click','#btn-edit',function() {
+            
+              let row = $(this).closest('tr');
+              
+              let id  = $(this).attr('data-id');
+              
+              $('#frm-add-agent #Id').val(id);
+              $('#frm-add-agent #Name').val(row.find("td:eq(0)").text().trim());
+              $('#frm-add-agent #Tel').val(row.find("td:eq(1)").text().trim());
+              $('#frm-add-agent #Address').val(row.find("td:eq(2)").text().trim());              
+              
+              $('#modal-add-agent').modal('show');    
+          });
+          
+          // remove
+        $(document).on('click','#btn-remove',function() {
+            let id  = $(this).attr('data-id');
+            
+            let con = confirm('Are you sure remove ?');
+            
+            if(!con){
+                return false;
+            }
+            
+            $.ajax({
+                type: 'delete',
+                url: '/Agent/Remove',
+                data: {
+                    __RequestVerificationToken:token,
+                    id:id
+                },
+                success: function(r) {
+                  if(r.error){
+                      alert(r.error);
+                      return false;
+                  }
+                  window.location.reload();
+                }               
+            });
+        });
+          
+    });
+    </script>
+}

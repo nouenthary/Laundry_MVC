@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Laundry_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Tel" Type="varchar" MaxLength="255" />
+    <Property Name="Address" Type="text" />
+    <Property Name="Location" Type="text" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Date" Type="varchar" MaxLength="1" />
+    <Property Name="Time" Type="varchar" MaxLength="1" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -74,22 +88,35 @@
       <PropertyRef Name="LaundryId" />
     </Key>
     <Property Name="LaundryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="255" />
     <Property Name="Weight" Type="float" />
-    <Property Name="CategoryId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
     <Property Name="CustomerId" Type="int" />
     <Property Name="Status" Type="nvarchar" MaxLength="255" />
     <Property Name="Date" Type="nvarchar" MaxLength="55" />
     <Property Name="Amount" Type="float" />
-    <Property Name="QrCode" Type="nvarchar" MaxLength="255" />
     <Property Name="InvoiceId" Type="int" />
-    <Property Name="Delete" Type="tinyint" />
     <Property Name="UserId" Type="int" />
     <Property Name="Qty" Type="int" />
     <Property Name="PercentCommission" Type="float" />
     <Property Name="Commission" Type="float" />
-    <Property Name="Type" Type="varchar" MaxLength="255" />
     <Property Name="Time" Type="varchar" MaxLength="255" />
+    <Property Name="Price" Type="float" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="PermissionId" />
+    </Key>
+    <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Create_Order" Type="tinyint" />
+    <Property Name="Setting" Type="tinyint" />
+    <Property Name="Sale_Report" Type="tinyint" />
+    <Property Name="Create_Customer" Type="tinyint" />
+    <Property Name="Create_Service" Type="tinyint" />
+    <Property Name="Backup" Type="tinyint" />
+    <Property Name="Create_User" Type="tinyint" />
+    <Property Name="Report_Monthly" Type="tinyint" />
+    <Property Name="Report_Daily" Type="tinyint" />
   </EntityType>
   <EntityType Name="Receipt">
     <Key>
@@ -114,22 +141,21 @@
       <PropertyRef Name="ServiceId" />
     </Key>
     <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Service" Type="nvarchar" MaxLength="255" />
-    <Property Name="PriceRiel" Type="float" />
+    <Property Name="ServiceName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="float" />
     <Property Name="Date" Type="nvarchar" MaxLength="255" />
     <Property Name="Time" Type="nvarchar" MaxLength="255" />
     <Property Name="Auditor" Type="int" />
     <Property Name="Status" Type="varchar" MaxLength="255" />
-    <Property Name="ServiceTypeId" Type="int" />
     <Property Name="Discount" Type="float" />
-    <Property Name="PriceDollar" Type="float" />
+    <Property Name="Type" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="ServiceType">
     <Key>
       <PropertyRef Name="ServiceTypeId" />
     </Key>
     <Property Name="ServiceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ServiceType" Type="nvarchar" MaxLength="255" />
+    <Property Name="ServiceTypeName" Type="nvarchar" MaxLength="255" />
     <Property Name="Date" Type="nvarchar" MaxLength="255" />
     <Property Name="Time" Type="nvarchar" MaxLength="255" />
     <Property Name="Auditor" Type="int" />
@@ -145,6 +171,16 @@
     <Property Name="location" Type="varchar" MaxLength="255" />
     <Property Name="Date" Type="varchar" MaxLength="55" />
     <Property Name="Time" Type="varchar" MaxLength="55" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="255" />
+    <Property Name="User" Type="varchar" MaxLength="255" />
+    <Property Name="Date" Type="varchar" MaxLength="1" />
+    <Property Name="Time" Type="varchar" MaxLength="1" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -187,6 +223,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Laundary__Catego__01142BA1">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="Laundary">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Laundary__Catego__21B6055D">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Laundary" Type="Self.Laundary" Multiplicity="*" />
@@ -195,7 +243,7 @@
         <PropertyRef Name="CategoryId" />
       </Principal>
       <Dependent Role="Laundary">
-        <PropertyRef Name="CategoryId" />
+        <PropertyRef Name="ServiceId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -235,6 +283,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Permissio__UserI__72C60C4A">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Permission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__User__RoleId__32E0915F">
     <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -249,6 +309,7 @@
   </Association>
   <Function Name="GetCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="Laundry_DBModelStoreContainer">
+    <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
@@ -256,11 +317,13 @@
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Laundary" EntityType="Self.Laundary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceType" EntityType="Self.ServiceType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tracker" EntityType="Self.Tracker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Self.FK__Commissio__UserI__3B75D760">
       <End Role="User" EntitySet="User" />
@@ -269,6 +332,10 @@
     <AssociationSet Name="FK__Invoice__UserId__48CFD27E" Association="Self.FK__Invoice__UserId__48CFD27E">
       <End Role="User" EntitySet="User" />
       <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Laundary__Catego__01142BA1" Association="Self.FK__Laundary__Catego__01142BA1">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Laundary" EntitySet="Laundary" />
     </AssociationSet>
     <AssociationSet Name="FK__Laundary__Catego__21B6055D" Association="Self.FK__Laundary__Catego__21B6055D">
       <End Role="Category" EntitySet="Category" />
@@ -285,6 +352,10 @@
     <AssociationSet Name="FK__Laundary__UserId__34C8D9D1" Association="Self.FK__Laundary__UserId__34C8D9D1">
       <End Role="User" EntitySet="User" />
       <End Role="Laundary" EntitySet="Laundary" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Permissio__UserI__72C60C4A" Association="Self.FK__Permissio__UserI__72C60C4A">
+      <End Role="User" EntitySet="User" />
+      <End Role="Permission" EntitySet="Permission" />
     </AssociationSet>
     <AssociationSet Name="FK__User__RoleId__32E0915F" Association="Self.FK__User__RoleId__32E0915F">
       <End Role="Role" EntitySet="Role" />

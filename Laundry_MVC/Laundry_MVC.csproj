@@ -217,6 +217,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AgentController.cs" />
+    <Compile Include="Controllers\AgentOrderController.cs" />
     <Compile Include="Controllers\api\CustomerController.cs" />
     <Compile Include="Controllers\api\ServiceController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
@@ -236,7 +238,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Helper\Authenticate.cs" />
+    <Compile Include="Helper\Auth.cs" />
     <Compile Include="Helper\ClassSQL.cs" />
     <Compile Include="Helper\ControllerExtensions.cs" />
     <Compile Include="Helper\UtilHelper.cs" />
@@ -250,7 +252,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Laundry_DBDataSet_.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Agent.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgentInvoice.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgentInvoviceDetail.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category1.cs">
       <DependentUpon>DB_Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commission.cs">
@@ -266,6 +280,7 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>DB_Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAO\AgentOrder.cs" />
     <Compile Include="Models\DAO\CustomerModel.cs" />
     <Compile Include="Models\DAO\ReportModel.cs" />
     <Compile Include="Models\DAO\ServiceModel.cs" />
@@ -301,6 +316,9 @@
     <Compile Include="Models\Permission.cs">
       <DependentUpon>DB_Connection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RawSql.cs" />
     <Compile Include="Models\RawSqlInterface.cs" />
     <Compile Include="Models\Receipt.cs">
@@ -316,6 +334,9 @@
       <DependentUpon>DB_Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tracker.cs">
+      <DependentUpon>DB_Connection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Type.cs">
       <DependentUpon>DB_Connection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -7203,6 +7224,9 @@
     <Content Include="NetView\Silder.ascx" />
     <Content Include="Scripts\ASPSnippets_Pager.min.js" />
     <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Views\AgentOrder\Index.cshtml" />
+    <Content Include="Views\Agent\Index.cshtml" />
+    <Content Include="Views\Agent\_Action.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Category\ModalCreateCategory.cshtml" />
     <Content Include="Views\Category\ModalEditCategory.cshtml" />
@@ -7335,7 +7359,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55781</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55781/</IISUrl>
+          <IISUrl>http://localhost:5555/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

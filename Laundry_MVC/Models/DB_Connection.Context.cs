@@ -27,7 +27,11 @@ namespace Laundry_MVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Agent> Agents { get; set; }
+        public virtual DbSet<AgentInvoice> AgentInvoices { get; set; }
+        public virtual DbSet<AgentInvoviceDetail> AgentInvoviceDetails { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Category1> Categorys { get; set; }
         public virtual DbSet<Commission> Commissions { get; set; }
         public virtual DbSet<Config> Configs { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }
@@ -35,11 +39,13 @@ namespace Laundry_MVC.Models
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Laundary> Laundaries { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
         public virtual DbSet<Tracker> Trackers { get; set; }
+        public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
         public virtual ObjectResult<GetCategory_Result> GetCategory()

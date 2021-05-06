@@ -1,5 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Laundry_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Tel" Type="varchar" MaxLength="255" />
+    <Property Name="Address" Type="text" />
+    <Property Name="Location" Type="text" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Date" Type="varchar" MaxLength="255" />
+    <Property Name="Time" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="AgentInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="varchar" MaxLength="255" />
+    <Property Name="Time" Type="varchar" MaxLength="255" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="TotalDollar" Type="float" />
+    <Property Name="TotalRiel" Type="float" />
+    <Property Name="ReceviedReil" Type="float" />
+    <Property Name="ReceivedDollar" Type="float" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="PayBy" Type="varchar" MaxLength="255" />
+    <Property Name="Print" Type="varchar" MaxLength="255" />
+    <Property Name="TranId" Type="varchar" MaxLength="1" />
+    <Property Name="QrCode" Type="text" />
+    <Property Name="PayStatus" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="AgentInvoviceDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatId" Type="int" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="Qty" Type="int" />
+    <Property Name="Weight" Type="float" />
+    <Property Name="Price" Type="float" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="Total" Type="float" />
+    <Property Name="Date" Type="varchar" MaxLength="255" />
+    <Property Name="Time" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="AgentId" Type="bigint" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Percent" Type="float" />
+    <Property Name="Commission" Type="float" />
+    <Property Name="AgentInvoiceId" Type="int" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -14,6 +70,14 @@
     <Property Name="Discount" Type="float" />
     <Property Name="Start" Type="varchar" MaxLength="255" />
     <Property Name="End" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Categorys">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Commission">
     <Key>
@@ -104,6 +168,18 @@
     <Property Name="Report_Monthly" Type="tinyint" />
     <Property Name="Report_Daily" Type="tinyint" />
   </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id " />
+    </Key>
+    <Property Name="Id " Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product" Type="varchar" MaxLength="255" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Date" Type="varchar" MaxLength="255" />
+    <Property Name="Time" Type="varchar" MaxLength="255" />
+    <Property Name="CategoryId" Type="int" />
+  </EntityType>
   <EntityType Name="Receipt">
     <Key>
       <PropertyRef Name="ReceiptId" />
@@ -158,6 +234,13 @@
     <Property Name="Date" Type="varchar" MaxLength="55" />
     <Property Name="Time" Type="varchar" MaxLength="55" />
   </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="255" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserId" />
@@ -175,6 +258,66 @@
     <Property Name="RoleId" Type="int" />
     <Property Name="Gender" Type="varchar" MaxLength="255" />
   </EntityType>
+  <Association Name="FK__AgentInvo__Agent__3A4CA8FD">
+    <End Role="Agent" Type="Self.Agent" Multiplicity="0..1" />
+    <End Role="AgentInvoviceDetails" Type="Self.AgentInvoviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetails">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Agent__3D2915A8">
+    <End Role="AgentInvoice" Type="Self.AgentInvoice" Multiplicity="0..1" />
+    <End Role="AgentInvoviceDetails" Type="Self.AgentInvoviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentInvoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetails">
+        <PropertyRef Name="AgentInvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__CatId__339FAB6E">
+    <End Role="Categorys" Type="Self.Categorys" Multiplicity="0..1" />
+    <End Role="AgentInvoviceDetails" Type="Self.AgentInvoviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetails">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Produ__32AB8735">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="AgentInvoviceDetails" Type="Self.AgentInvoviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id " />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetails">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Servi__3587F3E0">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="AgentInvoviceDetails" Type="Self.AgentInvoviceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetails">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Commissio__UserI__3B75D760">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
@@ -271,6 +414,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Product__Categor__2CF2ADDF">
+    <End Role="Categorys" Type="Self.Categorys" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorys">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__User__RoleId__32E0915F">
     <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -285,7 +440,11 @@
   </Association>
   <Function Name="GetCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="Laundry_DBModelStoreContainer">
+    <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AgentInvoice" EntityType="Self.AgentInvoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AgentInvoviceDetails" EntityType="Self.AgentInvoviceDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorys" EntityType="Self.Categorys" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
@@ -293,12 +452,34 @@
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Laundary" EntityType="Self.Laundary" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceType" EntityType="Self.ServiceType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tracker" EntityType="Self.Tracker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AgentInvo__Agent__3A4CA8FD" Association="Self.FK__AgentInvo__Agent__3A4CA8FD">
+      <End Role="Agent" EntitySet="Agent" />
+      <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Agent__3D2915A8" Association="Self.FK__AgentInvo__Agent__3D2915A8">
+      <End Role="AgentInvoice" EntitySet="AgentInvoice" />
+      <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__CatId__339FAB6E" Association="Self.FK__AgentInvo__CatId__339FAB6E">
+      <End Role="Categorys" EntitySet="Categorys" />
+      <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Produ__32AB8735" Association="Self.FK__AgentInvo__Produ__32AB8735">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Servi__3587F3E0" Association="Self.FK__AgentInvo__Servi__3587F3E0">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
     <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Self.FK__Commissio__UserI__3B75D760">
       <End Role="User" EntitySet="User" />
       <End Role="Commission" EntitySet="Commission" />
@@ -330,6 +511,10 @@
     <AssociationSet Name="FK__Permissio__UserI__72C60C4A" Association="Self.FK__Permissio__UserI__72C60C4A">
       <End Role="User" EntitySet="User" />
       <End Role="Permission" EntitySet="Permission" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Categor__2CF2ADDF" Association="Self.FK__Product__Categor__2CF2ADDF">
+      <End Role="Categorys" EntitySet="Categorys" />
+      <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="FK__User__RoleId__32E0915F" Association="Self.FK__User__RoleId__32E0915F">
       <End Role="Role" EntitySet="Role" />

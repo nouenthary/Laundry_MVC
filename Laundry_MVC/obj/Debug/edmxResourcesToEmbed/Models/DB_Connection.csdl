@@ -2,7 +2,11 @@
 <Schema Namespace="Laundry_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DB_Connection" annotation:LazyLoadingEnabled="true">
     <FunctionImport Name="GetCategory" ReturnType="Collection(Laundry_DBModel.GetCategory_Result)" />
+    <EntitySet Name="Agents" EntityType="Laundry_DBModel.Agent" />
+    <EntitySet Name="AgentInvoices" EntityType="Laundry_DBModel.AgentInvoice" />
+    <EntitySet Name="AgentInvoviceDetails" EntityType="Laundry_DBModel.AgentInvoviceDetail" />
     <EntitySet Name="Categories" EntityType="Laundry_DBModel.Category" />
+    <EntitySet Name="Categorys" EntityType="Laundry_DBModel.Category1" />
     <EntitySet Name="Commissions" EntityType="Laundry_DBModel.Commission" />
     <EntitySet Name="Configs" EntityType="Laundry_DBModel.Config" />
     <EntitySet Name="Currencies" EntityType="Laundry_DBModel.Currency" />
@@ -10,15 +14,41 @@
     <EntitySet Name="Invoices" EntityType="Laundry_DBModel.Invoice" />
     <EntitySet Name="Laundaries" EntityType="Laundry_DBModel.Laundary" />
     <EntitySet Name="Permissions" EntityType="Laundry_DBModel.Permission" />
+    <EntitySet Name="Products" EntityType="Laundry_DBModel.Product" />
     <EntitySet Name="Receipts" EntityType="Laundry_DBModel.Receipt" />
     <EntitySet Name="Roles" EntityType="Laundry_DBModel.Role" />
     <EntitySet Name="Services" EntityType="Laundry_DBModel.Service" />
     <EntitySet Name="ServiceTypes" EntityType="Laundry_DBModel.ServiceType" />
     <EntitySet Name="Trackers" EntityType="Laundry_DBModel.Tracker" />
+    <EntitySet Name="Types" EntityType="Laundry_DBModel.Type" />
     <EntitySet Name="Users" EntityType="Laundry_DBModel.User" />
+    <AssociationSet Name="FK__AgentInvo__Agent__3A4CA8FD" Association="Laundry_DBModel.FK__AgentInvo__Agent__3A4CA8FD">
+      <End Role="Agent" EntitySet="Agents" />
+      <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Agent__3D2915A8" Association="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8">
+      <End Role="AgentInvoice" EntitySet="AgentInvoices" />
+      <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__CatId__339FAB6E" Association="Laundry_DBModel.FK__AgentInvo__CatId__339FAB6E">
+      <End Role="Category1" EntitySet="Categorys" />
+      <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Produ__32AB8735" Association="Laundry_DBModel.FK__AgentInvo__Produ__32AB8735">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AgentInvo__Servi__3587F3E0" Association="Laundry_DBModel.FK__AgentInvo__Servi__3587F3E0">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+    </AssociationSet>
     <AssociationSet Name="FK__Laundary__Catego__21B6055D" Association="Laundry_DBModel.FK__Laundary__Catego__21B6055D">
       <End Role="Category" EntitySet="Categories" />
       <End Role="Laundary" EntitySet="Laundaries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Categor__2CF2ADDF" Association="Laundry_DBModel.FK__Product__Categor__2CF2ADDF">
+      <End Role="Category1" EntitySet="Categorys" />
+      <End Role="Product" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Laundry_DBModel.FK__Commissio__UserI__3B75D760">
       <End Role="User" EntitySet="Users" />
@@ -59,6 +89,69 @@
     <Property Type="Double" Name="Price" Nullable="true" />
     <Property Type="String" Name="Thary" Nullable="false" MaxLength="5" />
   </ComplexType>
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Tel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Agent__3A4CA8FD" FromRole="Agent" ToRole="AgentInvoviceDetail" />
+  </EntityType>
+  <EntityType Name="AgentInvoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="TotalDollar" Type="Double" />
+    <Property Name="TotalRiel" Type="Double" />
+    <Property Name="ReceviedReil" Type="Double" />
+    <Property Name="ReceivedDollar" Type="Double" />
+    <Property Name="Amount" Type="Double" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PayBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Print" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TranId" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="QrCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PayStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8" FromRole="AgentInvoice" ToRole="AgentInvoviceDetail" />
+  </EntityType>
+  <EntityType Name="AgentInvoviceDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="ServiceId" Type="Int32" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="Weight" Type="Double" />
+    <Property Name="Price" Type="Double" />
+    <Property Name="Discount" Type="Double" />
+    <Property Name="Total" Type="Double" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AgentId" Type="Int64" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Percent" Type="Double" />
+    <Property Name="Commission" Type="Double" />
+    <Property Name="AgentInvoiceId" Type="Int32" />
+    <NavigationProperty Name="Agent" Relationship="Laundry_DBModel.FK__AgentInvo__Agent__3A4CA8FD" FromRole="AgentInvoviceDetail" ToRole="Agent" />
+    <NavigationProperty Name="AgentInvoice" Relationship="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8" FromRole="AgentInvoviceDetail" ToRole="AgentInvoice" />
+    <NavigationProperty Name="Category" Relationship="Laundry_DBModel.FK__AgentInvo__CatId__339FAB6E" FromRole="AgentInvoviceDetail" ToRole="Category1" />
+    <NavigationProperty Name="Product" Relationship="Laundry_DBModel.FK__AgentInvo__Produ__32AB8735" FromRole="AgentInvoviceDetail" ToRole="Product" />
+    <NavigationProperty Name="Service" Relationship="Laundry_DBModel.FK__AgentInvo__Servi__3587F3E0" FromRole="AgentInvoviceDetail" ToRole="Service" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="CategoryId" />
@@ -74,6 +167,16 @@
     <Property Name="Start" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="End" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Catego__21B6055D" FromRole="Category" ToRole="Laundary" />
+  </EntityType>
+  <EntityType Name="Category1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__CatId__339FAB6E" FromRole="Category1" ToRole="AgentInvoviceDetail" />
+    <NavigationProperty Name="Products" Relationship="Laundry_DBModel.FK__Product__Categor__2CF2ADDF" FromRole="Category1" ToRole="Product" />
   </EntityType>
   <EntityType Name="Commission">
     <Key>
@@ -174,6 +277,20 @@
     <Property Name="Report_Daily" Type="Byte" />
     <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__Permissio__UserI__72C60C4A" FromRole="Permission" ToRole="User" />
   </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id_" />
+    </Key>
+    <Property Name="Id_" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" />
+    <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Produ__32AB8735" FromRole="Product" ToRole="AgentInvoviceDetail" />
+    <NavigationProperty Name="Category" Relationship="Laundry_DBModel.FK__Product__Categor__2CF2ADDF" FromRole="Product" ToRole="Category1" />
+  </EntityType>
   <EntityType Name="Receipt">
     <Key>
       <PropertyRef Name="ReceiptId" />
@@ -206,6 +323,7 @@
     <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="Discount" Type="Double" />
     <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Servi__3587F3E0" FromRole="Service" ToRole="AgentInvoviceDetail" />
     <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Catego__01142BA1" FromRole="Service" ToRole="Laundary" />
   </EntityType>
   <EntityType Name="ServiceType">
@@ -230,6 +348,13 @@
     <Property Name="Date" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
     <Property Name="Time" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserId" />
@@ -252,6 +377,66 @@
     <NavigationProperty Name="Permissions" Relationship="Laundry_DBModel.FK__Permissio__UserI__72C60C4A" FromRole="User" ToRole="Permission" />
     <NavigationProperty Name="Role" Relationship="Laundry_DBModel.FK__User__RoleId__32E0915F" FromRole="User" ToRole="Role" />
   </EntityType>
+  <Association Name="FK__AgentInvo__Agent__3A4CA8FD">
+    <End Type="Laundry_DBModel.Agent" Role="Agent" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.AgentInvoviceDetail" Role="AgentInvoviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agent">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetail">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Agent__3D2915A8">
+    <End Type="Laundry_DBModel.AgentInvoice" Role="AgentInvoice" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.AgentInvoviceDetail" Role="AgentInvoviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentInvoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetail">
+        <PropertyRef Name="AgentInvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__CatId__339FAB6E">
+    <End Type="Laundry_DBModel.Category1" Role="Category1" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.AgentInvoviceDetail" Role="AgentInvoviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetail">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Produ__32AB8735">
+    <End Type="Laundry_DBModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.AgentInvoviceDetail" Role="AgentInvoviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id_" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AgentInvo__Servi__3587F3E0">
+    <End Type="Laundry_DBModel.Service" Role="Service" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.AgentInvoviceDetail" Role="AgentInvoviceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="ServiceId" />
+      </Principal>
+      <Dependent Role="AgentInvoviceDetail">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Laundary__Catego__21B6055D">
     <End Type="Laundry_DBModel.Category" Role="Category" Multiplicity="0..1" />
     <End Type="Laundry_DBModel.Laundary" Role="Laundary" Multiplicity="*" />
@@ -261,6 +446,18 @@
       </Principal>
       <Dependent Role="Laundary">
         <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Categor__2CF2ADDF">
+    <End Type="Laundry_DBModel.Category1" Role="Category1" Multiplicity="0..1" />
+    <End Type="Laundry_DBModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
