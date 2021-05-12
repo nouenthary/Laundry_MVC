@@ -1,0 +1,114 @@
+@using Laundry_MVC.Models
+@{
+    var db = new DB_Connection();
+
+    var categories = db.Categorys.ToList();
+
+    var services = db.Services.Where(x => x.Status == "Enable" && x.Type == "Agent").ToList();
+}
+
+@* Model *@
+<div class="modal fade" id="modal-add-order">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-server"></i> New Item</h4>
+            </div>
+            <form method="post" id="frm-add-item">
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label for="CatId">Category</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-bandcamp"></i>
+                            </div>
+                            <select id="CatId" name="CatId" class="form-control" required="required">
+                                <option value="">-- Choose Category --</option>
+                                @foreach (var item in categories)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ProductId">Product</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-server"></i>
+                            </div>
+                            <select id="ProductId" name="ProductId" class="form-control" required="required">
+                                <option value="">-- Choose Product --</option>
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ServiceId">Service</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-server"></i>
+                            </div>
+                            <select id="ServiceId" name="ServiceId" class="form-control" required="required">
+                                @foreach (var item in services)
+                                {
+                                    <option value="@item.ServiceId">@item.ServiceName</option>
+                                }
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Qty">Qty</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <input type="text" class="form-control" onkeypress="return isNumberKey(event)" id="Qty" name="Qty" placeholder="Enter Qty" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Weight">Weight</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-percent"></i>
+                            </div>
+                            <input type="text" onkeyup="digitsOnly(this);" class="form-control" id="Weight" name="Weight" placeholder="Enter Weight" required autocomplete="off">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-send"></i> Save change
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+@* Model *@

@@ -30,6 +30,8 @@ namespace Laundry_MVC.Models
         public string Status { get; set; }
         public Nullable<double> Discount { get; set; }
         public string Type { get; set; }
+        public string Unit { get; set; }
+        public Nullable<double> UnitType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentInvoviceDetail> AgentInvoviceDetails { get; set; }

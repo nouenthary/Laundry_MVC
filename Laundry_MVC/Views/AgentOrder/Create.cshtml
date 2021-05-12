@@ -1,0 +1,269 @@
+@model List<Laundry_MVC.Models.AgentInvoviceDetail>
+@using Laundry_MVC.Models
+@{
+    ViewBag.Title = "Order";
+
+    var db = new DB_Connection();
+
+    var agents = db.Agents.Where(x => x.Status == "Enable").ToList();
+}
+
+<div class="box box-primary">
+
+    <div class="modal-body">
+
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+
+            <div class="form-group col-md-4">
+                <label for="Name">Name :</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <select class="form-control" id="Name" name="Name" required>
+                        <option value="">-- Choose Name --</option>
+                        @foreach (var row in agents)
+                        {
+                            <option value="@row.Id" @(ViewBag.AgentId == row.Id ? "selected" : "")>@row.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="Tel">Tel :</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <select class="form-control" id="Tel" name="Tel" required>
+                        <option value="">-- Choose Phone --</option>
+                        @foreach (var row in agents)
+                        {
+                            <option value="@row.Id" @(ViewBag.AgentId == row.Id ? "selected" : "")>@row.Tel</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="Date">Date :</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="date" class="form-control" id="Date" name="Date"/>
+                </div>
+            </div>
+
+        </div>
+
+        <hr/>
+
+        <button class="btn btn-danger btn-sm btn-flat" id="btn-add-item">
+            <i class="fa fa-plus"></i> Add More
+        </button>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="table-item">
+                <thead>
+                <tr style="background-color: #1890ff; color: #fff">
+                    <th>Category</th>
+                    <th>Product</th>
+                    <th>Service</th>
+                    <th>Qty</th>
+                    <th>Weight</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th class="text-center">
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr data-id="@r.Id">
+                        <td>@r.Category.Name</td>
+                        <td>@r.Product.Product1</td>
+                        <td>@r.Service.ServiceName</td>
+                        <td>@r.Qty Pcs</td>
+                        <td>@r.Weight kgs</td>
+                        <td>@r.Price R</td>
+                        <td>@r.Discount %</td>
+                        <td>@r.Total R</td>
+                        <td><label class="label label-info">@r.Status</label></td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-primary btn-xs" id="btn-edit-item">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-danger btn-xs" id="btn-remove-item">
+                                <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                }
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class="bg-success">Total :</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="bg-success">@Model.Sum(x => x.Total) R</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left btn-flat" onclick="window.location.href = '/AgentOrder'">
+            <i class="fa fa-arrow-left"></i> Back
+        </button>
+        @* <button type="submit" class="btn btn-primary"> *@
+        @*     <i class="fa fa-save"></i> Save Order *@
+        @* </button> *@
+    </div>
+
+</div>
+
+@Html.Partial("ModalAddItem")
+
+@section Scripts
+{
+    <script src="~/Scripts/src/index.js"></script>
+    
+    <script>
+         let token = $('input[name="__RequestVerificationToken"]').val();
+           
+         // show modal    
+         $('#btn-add-item').click(function() {
+            $('#modal-add-order').modal('show');
+         }); 
+            
+         // save order  
+         $(document).on('submit','#frm-add-item',function(e) {
+            e.preventDefault();
+            
+            let phone = $('#Tel').val();
+                         
+            let orderId = getParamsMap()['orderId'];
+            
+            let form = $('#frm-add-item').serializeArray();
+                             
+            form.push({name: 'AgentInvoiceId',value: orderId});
+            
+            form.push({name: 'AgentId', value: phone});
+            
+            console.log(form);
+            
+            $.ajax({
+                type: 'post',
+                url: '/AgentOrder/AddItem',
+                data: form,
+                success: function(r) {
+                  console.log(r);
+                  if(r){
+                      window.location.reload();
+                  }
+                }
+            });
+            
+         });  
+         
+         // remove item
+         $(document).on('click','#btn-remove-item',function() {
+           let id  = $(this).closest('tr').attr('data-id');
+            
+           const con = confirm('Are you sure remove ?');
+           
+           if(!con){
+               return false;
+           }
+           
+           $.ajax({
+            type: 'delete',
+            url: '/AgentOrder/RemoveItem',
+            data: {
+                id:id,
+                __RequestVerificationToken: token
+            },
+            success: function(r) {
+              if(r.error){
+                  alert(r.error);
+                  return false;
+              }
+              window.location.reload();
+            }
+           });
+         });
+         
+         // Protect
+          function Protect(cdn){
+               $(cdn).bind("cut copy paste drag drop", function(e) {
+                     e.preventDefault();
+                });  
+          }  
+              
+         // only number
+         function isNumberKey(evt) {
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57))
+                 return false;
+             return true;
+         }
+         
+         function digitsOnly(obj) {     
+            obj.value = obj.value.replace(/[^1-9\.]/g,'');
+         }
+         
+         let getParamsMap = function () {
+             let params = window.location.search.split("&");
+             let paramsMap = {};
+             params.forEach(function (p) {
+                 let v = p.split("=");
+                 paramsMap[v[0]]=decodeURIComponent(v[1]);
+             });
+             return paramsMap;
+         };
+         
+         // product on change
+         $(document).on('change','#CatId',function() {
+           let id = $(this).val();
+           $.ajax({
+            type: 'post',
+            url: '/AgentOrder/GetProductByCategory',
+            data: {
+                __RequestVerificationToken: token,
+                id: id
+            },
+            success: function(r) {
+              
+              $('#ProductId').empty();  
+                
+              $.each(r, function (i, item) {               
+                  $('#ProductId').append($('<option>', { 
+                      value: item.key,
+                      text : item.value 
+                  }));
+              });
+              
+            }
+           });
+         }); 
+                     
+         
+    </script>
+}

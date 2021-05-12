@@ -1,0 +1,98 @@
+﻿@using Laundry_MVC.Models
+
+@{
+    var db = new DB_Connection();
+
+    var service = db.ServiceTypes.ToList();
+}
+
+<div class="modal fade" id="modal-edit-service">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-server"></i> Edit Service</h4>
+            </div>
+            <form method="post" id="frm-edit-service">
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    
+                    @Html.Hidden("ServiceId")
+                    
+                    <div class="form-group">
+                        <label for="ServiceName">Service</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-bandcamp"></i>
+                            </div>
+                            <select id="ServiceName" name="ServiceName" class="form-control">
+                                @foreach (var item in service)
+                                {
+                                    <option value="@item.ServiceTypeName">@item.ServiceTypeName</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Type</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-server"></i>
+                            </div>
+                            <select id="Type" name="Type" class="form-control">
+                                @foreach (var item in Constraint.CustomerType)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Price">Price</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <input type="text" class="form-control" id="Price" name="Price" placeholder="Enter Price" required autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Discount">Discount</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-percent"></i>
+                            </div>
+                            <input type="text" class="form-control" id="Discount" name="Discount" placeholder="Enter Discount" required value="0" autocomplete="off">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-send"></i> Save change
+                    </button>
+                </div>
+                
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,44 @@
+﻿@{
+    string Color(string value)
+    {
+        switch (value)
+        {
+            case "Pending":
+                return "#1890ff";
+            case "Complete":
+                return "#52c41a";
+            case "Processing":
+                return "#ff4d4f";
+            default:
+                return "#39CCCC";
+        }
+    }
+}
+
+<div style="width: 110px">
+    @using (Ajax.BeginForm("UpdateStatus","Laundry",new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, LoadingElementId = "", UpdateTargetId = "partialViewDiv" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Hidden("id", ViewData["id"])
+      
+    <select class="form-control"
+            id="status" name="status" @((string)ViewData["value"] == "Done" || (string)ViewData["value"] == "Complete" ? "disabled" : "")
+            style="background: @Color((string) ViewData["value"]); color: #fff"
+            onchange="this.form.submit();">
+        <option value="Processing" @((string)ViewData["value"] == "Processing" ? "selected" : "")>Processing</option>
+        <option value="Pending" @((string)ViewData["value"] == "Pending" ? "selected" : "")>Pending</option>
+        <option value="Done" @((string)ViewData["value"] == "Done" ? "selected" : "")>Done</option>
+
+        @if (ViewData["value"] + "" == "Done")
+        {
+            <option value="Complete" @((string)ViewData["value"] == "Done" ? "selected" : "")>Done</option>
+        }
+
+        @if (ViewData["value"] + "" == "Complete")
+        {
+            <option value="Complete" @((string)ViewData["value"] == "Complete" ? "selected" : "")>Complete</option>
+        }
+    </select>
+    }
+</div>
+

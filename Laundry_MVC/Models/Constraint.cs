@@ -26,5 +26,6 @@ namespace Laundry_MVC.Models
         }
 
         public static readonly string[] CustomerType = { "Customer", "Agency", "Contract"};
+        
     }
 }

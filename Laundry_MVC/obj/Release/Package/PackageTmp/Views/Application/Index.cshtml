@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Backup";
+}
+
+@if ((string) TempData["Message"] != ""){
+    <div class="@(TempData["Message"] != null ? "callout" : "")  callout-success">
+        <h4>@TempData["Message"]</h4>
+    </div>
+}
+
+<form action="@Url.Action("Backup")" method="post">
+   <button type="submit" class="btn btn-danger">
+       Back Database
+   </button> 
+</form>
+
+

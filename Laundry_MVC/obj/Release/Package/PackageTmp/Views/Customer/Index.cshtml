@@ -1,0 +1,384 @@
+﻿@using Laundry_MVC.Models
+@model  List<Laundry_MVC.Models.Customer>
+
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet">
+
+@{
+    ViewBag.Title = "Customer";
+
+    var db = new DB_Connection();
+
+    var customer = db.Customers.Where(x => x.Delete == 1).ToList();
+}
+
+<style>
+    .select2-container--default .select2-selection--single {
+         border-radius: 0 !important;
+    }
+    .select2-container .select2-selection--single {
+        height: 33px !important;
+    }
+    
+    .pagination {
+        margin: 0 !important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+
+                <div class="box" style="border-top: none">
+                    <div class="box-header with-border">
+                        
+                        <div class="">
+                            <button type="button" class="btn btn-primary" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                               <i class="fa fa-filter"></i>  Filter
+                            </button>
+                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add-customer" style="float: right">
+                                <i class="fa fa-plus"></i>
+                                New Customer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Customer </label>
+                                    
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    
+                                    <select id="txtName" name="txtName" class="form-control">
+                                        <option value="">All</option>
+                                        @foreach (var item in customer)
+                                        {
+                                            <option value="@item.Name" @((string) TempData["Name"] == item.Name.Trim() ? "selected" : "")>
+                                                    @item.Name
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            
+                            
+                            <div class="form-group col-md-4">
+                                <label>Customer Type</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                    <select id="txtType" name="txtType" class="form-control">
+                                         <option value="">All</option>
+                                        @foreach (var item in Constraint.CustomerType)
+                                        {
+                                            <option value="@item" @((string) TempData["Type"] == item ? "selected" : "")>@item</option>
+                                        }
+                                    </select>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            
+                            
+                            <div class="form-group col-md-4">
+                                <label>Phone</label>
+                                    
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <select id="txtPhone" name="txtPhone" class="form-control">
+                                        <option value="">All</option>
+                                        @foreach (var item in customer)
+                                        {
+                                            <option value="@item.Phone" @((string) TempData["Phone"] == item.Phone.Trim() ? "selected" : "")>
+                                                @item.Phone
+                                            </option>
+                                        }
+                                    </select>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <!-- /.box -->
+    </div>
+</div >
+
+@Html.Partial("ModalCreateCustomer")
+
+@Html.Partial("ModalEditCustomer")
+
+<a href="@Url.Action("Reports","Customer",new { reportType = "Excel" })" class="btn btn-success btn-sm">
+    <i class="fa fa-file-excel-o"></i> Export To Excel
+</a>
+<a href="@Url.Action("Reports","Customer",new { reportType = "PDF" })" class="btn btn-primary btn-sm">
+    <i class="fa fa-file-pdf-o"></i> Export To PDF
+</a>
+
+<br/><br />
+
+<div id="_PartialTable"></div>
+
+@section Scripts{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/Content/bower_components/select2/dist/css/select2.min.css">
+    <!-- Select2 -->
+    <script src="~/Content/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script>
+      
+        $(function (){
+            let token = $('input[name="__RequestVerificationToken"]').val();
+           
+            // filter
+            let Name = $('#txtName');
+            let Phone = $('#txtPhone');
+            let Type = $('#txtType');
+
+            function GetParams(){
+                return {
+                    Name: Name.val(), Phone: Phone.val(), Type: Type.val()
+                }
+            }
+            
+            function LoadData(){
+                let params = GetParams();
+                $('#_PartialTable').load('/Customer/_PartialTable',{
+                    ...params,
+                    page: "",
+                    pageSize : $('#pageSize').val()    
+                });
+            }
+            
+            LoadData();
+            
+            Name.change(function (){
+                LoadData();
+            });
+            
+            Phone.change(function (){
+                LoadData();
+            });
+           
+            Type.change(function (){
+                LoadData();
+            });
+            
+            $(document).on('change','#_PartialTable #pageSize',function (){
+                
+                let params = GetParams();
+                $('#_PartialTable').load('/Customer/_PartialTable',{
+                    ...params,                
+                    pageSize : $(this).val()    
+                });
+            });
+            
+            // 
+            $(document).on('click','ul.pagination > li > a',function (e){
+                let page = $(this).attr('href').split('=')[1];
+                let params = GetParams();
+              
+                $('#_PartialTable').load('/Customer/_PartialTable',
+                {   
+                    ...params,
+                    page: page,
+                    pageSize: $('#pageSize').val() 
+                });
+                e.preventDefault();
+            });
+            
+           Phone.select2();
+           Name.select2();
+            
+            // filter
+                
+            // number only
+            $(document).on("input", "#Phone", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
+            
+            // create
+            $(document).on('submit','#frm-create-customer',function (e){
+                e.preventDefault();
+                let form = $('#frm-create-customer').serializeArray();
+                $.ajax({
+                       type: 'Post',
+                       url: '/Customer/Create',
+                       data: form,
+                       success: function (response){
+                         
+                           if (response.name) {
+                               alert(response.name);
+                               return false;
+                           }
+                           if (response.phone){
+                               alert(response.phone);
+                               return false;
+                           }
+                           
+                           window.location.reload();
+                       }
+                   });
+            });
+            
+            // remove
+            $(document).on('click','#btn-delete',function (){
+                    let con = confirm("Are you sure remove ?");
+                    if (con){
+                        $.ajax({
+                            type: 'Post',
+                            url: '/Customer/Delete',
+                            data: {id: $(this).attr('data-id'), __RequestVerificationToken: token},
+                            success: function (response){
+                                if (response.error !== ''){
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        
+            // edit
+            $(document).on('click','#btn-edit',function (){
+                $('#modal-edit-customer').modal('show');
+                
+                let row = $(this).closest('tr');
+                
+                $('#frm-edit-customer #CustomerId').val($(this).attr('data-id').trim());
+                $('#frm-edit-customer #Name').val(row.find("td:eq(1)").text().trim());
+                $('#frm-edit-customer #Phone').val(row.find("td:eq(2)").text().trim());
+                $('#frm-edit-customer #Type').val(row.find("td:eq(3)").text().trim());
+                $('#frm-edit-customer #Noted').val(row.find("td:eq(4)").text().trim());               
+            });
+            
+            // update
+            $(document).on('submit','#frm-edit-customer',function (e){
+            e.preventDefault();
+            let form = $('#frm-edit-customer').serializeArray();
+            $.ajax({
+                   type: 'Post',
+                   url: '/Customer/Update',
+                   data: form,
+                   success: function (response){
+                       if (response.name){
+                           alert(response.name);
+                           return false;
+                       }
+                       if (response.phone){
+                           alert(response.phone);
+                           return false;
+                       }
+                      
+                       window.location.reload();
+                   }
+               });
+        });
+        
+      //  let url = window.location.href;  
+        // name
+        // $('#txtName').change(function (){
+        //    
+        //     SetTempData('Name', $(this).val().trim());
+        //    
+        //     RemovePageAndRow();
+        //    
+        //     url = removeParam("name-contains", url);
+        //            
+        //     if (url.indexOf('?') > -1){
+        //        url += '?name-contains=' + $(this).val(); 
+        //     }else{
+        //        url += '?name-contains=' + $(this).val();
+        //     }
+        //     window.location.href = url;
+        // });
+        
+        // phone
+        // $('#txtPhone').change(function (){
+        //    
+        //     RemovePageAndRow();
+        //    
+        //     url = removeParam("phone-contains", url);
+        //                         
+        //     SetTempData('Phone', $(this).val().trim());
+        //    
+        //     if (url.indexOf('?') > -1){
+        //        url += '?phone-contains=' + $(this).val(); 
+        //     }else{
+        //        url += '?phone-contains=' + $(this).val();
+        //     }
+        //     window.location.href = url;
+        // });
+        
+        // type
+        // $('#txtType').change(function (){
+        //    
+        //     RemovePageAndRow();
+        //    
+        //     url = removeParam("type-contains", url);         
+        //           
+        //     SetTempData('Type', $(this).val().trim());
+        //    
+        //     if (url.indexOf('?') > -1){
+        //        url += '?type-contains=' + $(this).val(); 
+        //     }else{
+        //        url += '?type-contains=' + $(this).val();
+        //     }
+        //     window.location.href = url;
+        // });
+        
+        // remove
+        // function removeParam(key, sourceURL) {
+        //     let rtn = sourceURL.split("?")[0],
+        //         param,
+        //         params_arr = [],
+        //         queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+        //     if (queryString !== "") {
+        //         params_arr = queryString.split("&");
+        //         for (let i = params_arr.length - 1; i >= 0; i -= 1) {
+        //             param = params_arr[i].split("=")[0];
+        //             if (param === key) {
+        //                 params_arr.splice(i, 1);
+        //             }
+        //         }
+        //         if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+        //     }
+        //     return rtn;
+        // }
+        
+        
+        // set temp
+        // function SetTempData(key, value) {
+        //     $.ajax({
+        //         type: "POST",
+        //         url: '/Other/SetTempData',
+        //         data: "{ key: '"+key+"', value: '"+value+"' }",
+        //         contentType: "application/json; charset=utf-8",
+        //         dataType: "text",
+        //         success: function (){}
+        //     });
+        // }
+        
+        // remove page and row
+        // function RemovePageAndRow(){
+        //      url = removeParam("rows", url);
+        //      url = removeParam("page", url);
+        //      url = removeParam("sort", url);
+        //      url = removeParam("order", url);
+        //      return url;
+        // }
+       
+            
+    </script>
+}

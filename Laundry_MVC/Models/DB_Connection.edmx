@@ -216,6 +216,8 @@
           <Property Name="Status" Type="varchar" MaxLength="255" />
           <Property Name="Discount" Type="float" />
           <Property Name="Type" Type="varchar" MaxLength="255" />
+          <Property Name="Unit" Type="varchar" MaxLength="255" />
+          <Property Name="UnitType" Type="float" />
         </EntityType>
         <EntityType Name="ServiceType">
           <Key>
@@ -320,6 +322,18 @@
             </Principal>
             <Dependent Role="AgentInvoviceDetails">
               <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentInvo__UserI__4D5F7D71">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AgentInvoice" Type="Self.AgentInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AgentInvoice">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,6 +499,10 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="AgentInvoviceDetails" EntitySet="AgentInvoviceDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK__AgentInvo__UserI__4D5F7D71" Association="Self.FK__AgentInvo__UserI__4D5F7D71">
+            <End Role="User" EntitySet="User" />
+            <End Role="AgentInvoice" EntitySet="AgentInvoice" />
+          </AssociationSet>
           <AssociationSet Name="FK__Commissio__UserI__3B75D760" Association="Self.FK__Commissio__UserI__3B75D760">
             <End Role="User" EntitySet="User" />
             <End Role="Commission" EntitySet="Commission" />
@@ -559,6 +577,10 @@
           <AssociationSet Name="FK__AgentInvo__Agent__3D2915A8" Association="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8">
             <End Role="AgentInvoice" EntitySet="AgentInvoices" />
             <End Role="AgentInvoviceDetail" EntitySet="AgentInvoviceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AgentInvo__UserI__4D5F7D71" Association="Laundry_DBModel.FK__AgentInvo__UserI__4D5F7D71">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AgentInvoice" EntitySet="AgentInvoices" />
           </AssociationSet>
           <AssociationSet Name="FK__AgentInvo__CatId__339FAB6E" Association="Laundry_DBModel.FK__AgentInvo__CatId__339FAB6E">
             <End Role="Category1" EntitySet="Categorys" />
@@ -654,6 +676,7 @@
           <Property Name="QrCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PayStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Agent__3D2915A8" FromRole="AgentInvoice" ToRole="AgentInvoviceDetail" />
+          <NavigationProperty Name="User" Relationship="Laundry_DBModel.FK__AgentInvo__UserI__4D5F7D71" FromRole="AgentInvoice" ToRole="User" />
         </EntityType>
         <EntityType Name="AgentInvoviceDetail">
           <Key>
@@ -853,6 +876,8 @@
           <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Discount" Type="Double" />
           <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UnitType" Type="Double" />
           <NavigationProperty Name="AgentInvoviceDetails" Relationship="Laundry_DBModel.FK__AgentInvo__Servi__3587F3E0" FromRole="Service" ToRole="AgentInvoviceDetail" />
           <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__Catego__01142BA1" FromRole="Service" ToRole="Laundary" />
         </EntityType>
@@ -901,6 +926,7 @@
           <Property Name="Delete" Type="Byte" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AgentInvoices" Relationship="Laundry_DBModel.FK__AgentInvo__UserI__4D5F7D71" FromRole="User" ToRole="AgentInvoice" />
           <NavigationProperty Name="Commissions" Relationship="Laundry_DBModel.FK__Commissio__UserI__3B75D760" FromRole="User" ToRole="Commission" />
           <NavigationProperty Name="Invoices" Relationship="Laundry_DBModel.FK__Invoice__UserId__48CFD27E" FromRole="User" ToRole="Invoice" />
           <NavigationProperty Name="Laundaries" Relationship="Laundry_DBModel.FK__Laundary__UserId__34C8D9D1" FromRole="User" ToRole="Laundary" />
@@ -928,6 +954,18 @@
             </Principal>
             <Dependent Role="AgentInvoviceDetail">
               <PropertyRef Name="AgentInvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AgentInvo__UserI__4D5F7D71">
+          <End Type="Laundry_DBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="Laundry_DBModel.AgentInvoice" Role="AgentInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AgentInvoice">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1319,6 +1357,8 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="Laundry_DBModel.Service">
               <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

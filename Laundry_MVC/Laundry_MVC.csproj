@@ -7224,7 +7224,10 @@
     <Content Include="NetView\Silder.ascx" />
     <Content Include="Scripts\ASPSnippets_Pager.min.js" />
     <Content Include="Scripts\MvcGrid\mvc-grid.js" />
+    <Content Include="Views\AgentOrder\Create.cshtml" />
     <Content Include="Views\AgentOrder\Index.cshtml" />
+    <Content Include="Views\AgentOrder\ModalAddItem.cshtml" />
+    <Content Include="Views\AgentOrder\ModalEditItem.cshtml" />
     <Content Include="Views\Agent\Index.cshtml" />
     <Content Include="Views\Agent\_Action.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
@@ -7279,6 +7282,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\backup\" />
     <Folder Include="Content\upload\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\DB_Connection.edmx">
@@ -7321,7 +7325,6 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Pager.cshtml" />
     <Content Include="Views\Shared\MvcGrid\_Grid.cshtml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Shared\_Style.cshtml" />
     <Content Include="Views\Report\_PartialTable.cshtml" />
     <Content Include="Views\Demo\Service.cshtml" />

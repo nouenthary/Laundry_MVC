@@ -227,6 +227,8 @@
     <EntitySetMapping Name="Services">
       <EntityTypeMapping TypeName="Laundry_DBModel.Service">
         <MappingFragment StoreEntitySet="Service">
+          <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Discount" ColumnName="Discount" />
           <ScalarProperty Name="Status" ColumnName="Status" />

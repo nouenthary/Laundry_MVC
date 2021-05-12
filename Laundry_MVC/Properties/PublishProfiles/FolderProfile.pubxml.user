@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-This file is used by the publish/package process of your Web project. You can customize the behavior of this process
-by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+https://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>D:\Website\Laundry_MVC\Build</_PublishTargetUrl>
-    <History>True|2021-04-04T14:34:22.0242431Z;True|2021-04-04T21:32:32.9927739+07:00;True|2021-04-03T22:12:30.6409215+07:00;True|2021-04-03T22:10:45.6615663+07:00;True|2021-04-03T22:09:15.9529788+07:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -20,10 +17,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/16/2021 00:16:34</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>04/16/2020 20:38:42</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>04/16/2020 20:38:56</publishTime>
+      <publishTime>03/02/2015 09:32:26</publishTime>
     </File>
     <File Include="bin/es/Microsoft.Data.SqlClient.resources.dll">
       <publishTime>03/16/2021 00:16:34</publishTime>
@@ -41,10 +38,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/16/2021 00:16:34</publishTime>
     </File>
     <File Include="bin/Laundry_MVC.dll">
-      <publishTime>04/04/2021 21:32:27</publishTime>
+      <publishTime>05/10/2021 16:13:09</publishTime>
     </File>
     <File Include="bin/Laundry_MVC.pdb">
-      <publishTime>04/04/2021 21:32:27</publishTime>
+      <publishTime>05/10/2021 16:13:09</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>11/25/2019 10:57:50</publishTime>
@@ -20861,7 +20858,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2021 22:18:10</publishTime>
     </File>
     <File Include="Models/DB_Connection.edmx.diagram">
-      <publishTime>03/24/2021 22:06:17</publishTime>
+      <publishTime>05/07/2021 09:15:28</publishTime>
     </File>
     <File Include="NetView/Master.master">
       <publishTime>04/03/2021 09:00:43</publishTime>
@@ -20872,14 +20869,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="NetView/Silder.ascx">
       <publishTime>04/03/2021 09:06:51</publishTime>
     </File>
+    <File Include="Scripts/ASPSnippets_Pager.min.js">
+      <publishTime>04/10/2021 17:16:46</publishTime>
+    </File>
     <File Include="Scripts/MvcGrid/mvc-grid.js">
       <publishTime>03/16/2021 09:51:11</publishTime>
     </File>
-    <File Include="Views/Category/Create.cshtml">
-      <publishTime>03/16/2021 22:43:27</publishTime>
+    <File Include="Views/Agent/Index.cshtml">
+      <publishTime>05/08/2021 09:06:33</publishTime>
     </File>
-    <File Include="Views/Category/Edit.cshtml">
-      <publishTime>03/16/2021 22:43:02</publishTime>
+    <File Include="Views/Agent/_Action.cshtml">
+      <publishTime>05/06/2021 10:32:55</publishTime>
+    </File>
+    <File Include="Views/AgentOrder/Create.cshtml">
+      <publishTime>05/07/2021 16:57:42</publishTime>
+    </File>
+    <File Include="Views/AgentOrder/Index.cshtml">
+      <publishTime>05/07/2021 11:16:58</publishTime>
+    </File>
+    <File Include="Views/AgentOrder/ModalAddItem.cshtml">
+      <publishTime>05/07/2021 15:56:28</publishTime>
+    </File>
+    <File Include="Views/AgentOrder/ModalEditItem.cshtml">
+      <publishTime>05/07/2021 15:57:55</publishTime>
+    </File>
+    <File Include="Views/Application/Index.cshtml">
+      <publishTime>04/05/2021 09:57:26</publishTime>
     </File>
     <File Include="Views/Category/Index.cshtml">
       <publishTime>04/01/2021 19:28:47</publishTime>
@@ -20897,34 +20912,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/02/2021 09:41:29</publishTime>
     </File>
     <File Include="Views/Config/Index.cshtml">
-      <publishTime>03/29/2021 21:35:09</publishTime>
+      <publishTime>04/05/2021 10:02:01</publishTime>
     </File>
     <File Include="Views/Customer/Index.cshtml">
-      <publishTime>04/04/2021 13:49:15</publishTime>
+      <publishTime>04/05/2021 08:41:25</publishTime>
     </File>
     <File Include="Views/Customer/ModalCreateCustomer.cshtml">
-      <publishTime>03/25/2021 08:46:26</publishTime>
+      <publishTime>04/05/2021 10:03:33</publishTime>
     </File>
     <File Include="Views/Customer/ModalEditCustomer.cshtml">
-      <publishTime>03/25/2021 08:46:25</publishTime>
+      <publishTime>04/05/2021 10:04:36</publishTime>
     </File>
     <File Include="Views/Customer/_PageSize.cshtml">
       <publishTime>04/04/2021 13:30:10</publishTime>
     </File>
     <File Include="Views/Customer/_PartialTable.cshtml">
-      <publishTime>04/04/2021 11:05:12</publishTime>
+      <publishTime>04/05/2021 08:52:28</publishTime>
     </File>
     <File Include="Views/Demo/Index.cshtml">
-      <publishTime>04/01/2021 11:08:20</publishTime>
+      <publishTime>04/10/2021 17:24:09</publishTime>
+    </File>
+    <File Include="Views/Demo/Service.cshtml">
+      <publishTime>04/10/2021 16:06:19</publishTime>
+    </File>
+    <File Include="Views/Error/Index.cshtml">
+      <publishTime>04/11/2021 21:09:16</publishTime>
     </File>
     <File Include="Views/FrontEnd/Index.cshtml">
       <publishTime>03/19/2021 21:04:10</publishTime>
-    </File>
-    <File Include="Views/Home/About.cshtml">
-      <publishTime>03/15/2021 19:20:40</publishTime>
-    </File>
-    <File Include="Views/Home/Contact.cshtml">
-      <publishTime>03/15/2021 19:20:40</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>04/01/2021 13:07:47</publishTime>
@@ -20933,19 +20948,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/01/2021 17:46:12</publishTime>
     </File>
     <File Include="Views/Laundry/Index.cshtml">
-      <publishTime>04/02/2021 17:16:25</publishTime>
+      <publishTime>04/13/2021 17:15:40</publishTime>
     </File>
     <File Include="Views/Laundry/ModalAddOrder.cshtml">
-      <publishTime>04/02/2021 17:30:30</publishTime>
-    </File>
-    <File Include="Views/Laundry/ModalEditCategory.cshtml">
-      <publishTime>03/19/2021 17:29:50</publishTime>
+      <publishTime>04/13/2021 17:07:47</publishTime>
     </File>
     <File Include="Views/Laundry/ModalEditOrder.cshtml">
       <publishTime>04/01/2021 13:31:15</publishTime>
     </File>
     <File Include="Views/Laundry/_GridFooter.cshtml">
-      <publishTime>04/02/2021 17:25:03</publishTime>
+      <publishTime>04/13/2021 15:44:00</publishTime>
     </File>
     <File Include="Views/Laundry/_Price.cshtml">
       <publishTime>03/26/2021 09:10:49</publishTime>
@@ -20957,10 +20969,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/28/2021 08:47:20</publishTime>
     </File>
     <File Include="Views/Report/index.cshtml">
-      <publishTime>04/04/2021 14:30:44</publishTime>
+      <publishTime>04/05/2021 14:54:59</publishTime>
     </File>
     <File Include="Views/Report/Invoice.cshtml">
-      <publishTime>03/26/2021 09:50:02</publishTime>
+      <publishTime>04/13/2021 17:15:25</publishTime>
     </File>
     <File Include="Views/Report/_GridFooter.cshtml">
       <publishTime>03/28/2021 08:42:57</publishTime>
@@ -20983,6 +20995,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Roles/Index.cshtml">
       <publishTime>03/16/2021 10:14:58</publishTime>
     </File>
+    <File Include="Views/Service/Index.cshtml">
+      <publishTime>04/13/2021 16:39:08</publishTime>
+    </File>
+    <File Include="Views/Service/ModalCreateService.cshtml">
+      <publishTime>04/13/2021 16:28:57</publishTime>
+    </File>
+    <File Include="Views/Service/ModalEditService.cshtml">
+      <publishTime>04/13/2021 16:35:42</publishTime>
+    </File>
+    <File Include="Views/Service/_PartialTable.cshtml">
+      <publishTime>04/13/2021 16:27:07</publishTime>
+    </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>03/15/2021 19:20:40</publishTime>
     </File>
@@ -20996,22 +21020,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/16/2021 09:51:11</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/03/2021 13:31:17</publishTime>
+      <publishTime>05/07/2021 08:57:27</publishTime>
     </File>
     <File Include="Views/Shared/_Silder.cshtml">
-      <publishTime>04/03/2021 08:43:44</publishTime>
+      <publishTime>05/07/2021 09:02:05</publishTime>
     </File>
     <File Include="Views/Shared/_Style.cshtml">
-      <publishTime>03/28/2021 08:53:15</publishTime>
+      <publishTime>05/07/2021 10:00:36</publishTime>
     </File>
     <File Include="Views/User/ChangePassword.cshtml">
       <publishTime>03/28/2021 08:44:30</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>03/23/2021 21:56:24</publishTime>
+      <publishTime>04/11/2021 21:51:56</publishTime>
     </File>
     <File Include="Views/User/ModalAddCommission.cshtml">
       <publishTime>03/23/2021 22:04:58</publishTime>
+    </File>
+    <File Include="Views/User/ModalPermission.cshtml">
+      <publishTime>04/11/2021 22:11:22</publishTime>
     </File>
     <File Include="Views/User/Register.cshtml">
       <publishTime>03/17/2021 20:28:34</publishTime>
@@ -21023,7 +21050,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/15/2021 19:20:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/03/2021 22:09:12</publishTime>
+      <publishTime>05/06/2021 22:02:56</publishTime>
     </File>
   </ItemGroup>
 </Project>

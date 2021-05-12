@@ -1,0 +1,67 @@
+﻿@using System.Data
+@using Laundry_MVC.Models
+@{
+    var db = new DB_Connection();
+
+    var permission = db.Permissions.FirstOrDefault(x => x.UserId == 1);
+
+    List<string> list = new List<string>();
+
+    var dt = new DataTable();
+    
+    // foreach (var row in permission)
+    // {
+    //     
+    // }
+}
+
+<div class="modal fade" id="modal-add-permission">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-table"></i> Add Permission</h4>
+            </div>
+            <form method="post" id="frm-add-permission">
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("UserId")
+
+                    @* <div class="form-group"> *@
+                    @*     <label for="Percent">Commission</label> *@
+                    @*     <div class="input-group"> *@
+                    @*         <div class="input-group-addon"> *@
+                    @*             <i class="fa fa-percent"></i> *@
+                    @*         </div> *@
+                    @*         <input type="text" class="form-control" id="Percent" name="Percent" placeholder="Enter Commission" required autocomplete="off"> *@
+                    @*     </div> *@
+                    @*     <!-- /.input group --> *@
+                    @* </div> *@
+                    
+                    
+                    <div>@permission</div>
+                    
+                    <div class="form-group">
+
+                        @* @foreach (var row in Model) *@
+                        @* { *@
+                        @*      *@
+                        @* } *@
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save Close</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

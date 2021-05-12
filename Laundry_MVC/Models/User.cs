@@ -17,6 +17,7 @@ namespace Laundry_MVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.AgentInvoices = new HashSet<AgentInvoice>();
             this.Commissions = new HashSet<Commission>();
             this.Invoices = new HashSet<Invoice>();
             this.Laundaries = new HashSet<Laundary>();
@@ -36,6 +37,8 @@ namespace Laundry_MVC.Models
         public Nullable<int> RoleId { get; set; }
         public string Gender { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgentInvoice> AgentInvoices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commission> Commissions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
